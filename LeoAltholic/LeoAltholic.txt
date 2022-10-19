@@ -1,6 +1,6 @@
 ## Title: Leo's Altholic
-## APIVersion: 100035
-## Version: 1.9.0
+## APIVersion: 101035 101036
+## Version: 1.9.0.N1
 ## AddOnVersion: 1900
 ## Author: |c39B027@LeandroSilva|r
 ## SavedVariables: LeoAltholicSavedVariables LeoAltholicCharVariables
