@@ -144,16 +144,19 @@ function LeoAltholicUI:updateBio()
     local control = LeoAltholicWindowBioPanelListScrollListContents
     for i = 1, control:GetNumChildren() do
         local child = control:GetChild(i):GetChild(8)
-        local riding = '|t20:20:esoui/art/mounts/ridingskill_speed.dds|t' .. string.format("%02d%%", child.riding.speed) ..
-                ' |t20:20:esoui/art/mounts/ridingskill_stamina.dds|t' .. string.format("%02d", child.riding.stamina) ..
+		
+		if child ~= nil then
+			local riding = '|t20:20:esoui/art/mounts/ridingskill_speed.dds|t' .. string.format("%02d%%", child.riding.speed) ..
+				' |t20:20:esoui/art/mounts/ridingskill_stamina.dds|t' .. string.format("%02d", child.riding.stamina) ..
                 ' |t20:20:esoui/art/mounts/ridingskill_capacity.dds|t' .. string.format("%02d", child.riding.capacity)
 
-        if (child.riding.speed < child.riding.speedMax or
-                child.riding.stamina < child.riding.staminaMax or
-                child.riding.capacity < child.riding.capacityMax) then
-            riding = riding .. ' |t22:22:esoui/art/miscellaneous/timer_32.dds|t' .. LeoAltholic.FormatTime(child.riding.time - GetTimeStamp(), true, true)
-        end
-        child:SetText(riding)
+			if (child.riding.speed < child.riding.speedMax or
+					child.riding.stamina < child.riding.staminaMax or
+					child.riding.capacity < child.riding.capacityMax) then
+				riding = riding .. ' |t22:22:esoui/art/miscellaneous/timer_32.dds|t' .. LeoAltholic.FormatTime(child.riding.time - GetTimeStamp(), true, true)
+			end
+			child:SetText(riding)
+		end
     end
 end
 

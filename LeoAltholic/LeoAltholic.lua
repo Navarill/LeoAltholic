@@ -11,6 +11,7 @@ LeoAltholic.jewelryMaxTraits = select(3,GetSmithingResearchLineInfo(7,1))
 local DARK_BROTHERHOOD = 118
 local THIEVES_GUILD = 117
 local LEGERDEMAIN = 111
+local SOULMAGIC = 72
 
 function LeoAltholic.GetMaxRank(skillType, skillLine)
     if skillType == SKILL_TYPE_AVA or
@@ -28,6 +29,8 @@ function LeoAltholic.GetMaxRank(skillType, skillLine)
         local _, _, _, skillLineId = GetSkillLineInfo(skillType, skillLine)
         if skillLineId == LEGERDEMAIN then
             return 20
+		elseif skillLineId == SOULMAGIC then
+			return 6
         else
             return 10
         end
