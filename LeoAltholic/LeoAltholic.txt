@@ -1,5 +1,5 @@
 ## Title: Leo's Altholic
-## APIVersion: 101039
+## APIVersion: 101040
 ## Version: 1.9.0
 ## AddOnVersion: 1900
 ## Author: LeandroSilva
