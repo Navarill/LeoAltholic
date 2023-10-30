@@ -203,6 +203,17 @@ function LeoAltholic.GetResearchCounters(craft, charName)
     if #char.research.doing[craft] > 0 then
         local research = char.research.doing[craft][1]
         lowest = research.doneAt
+		
+		if charName == LeoAltholic.CharName then
+			local _, remaining = GetSmithingResearchLineTraitTimes(craft, research.line, research.trait)
+			if remaining ~= nil then
+				research.doneAt = remaining + GetTimeStamp()
+			end
+		else
+			local now = GetTimeStamp()
+			local remaining = GetDiffBetweenTimeStamps(research.doneAt, now)
+			research.doneAt = remaining + now
+		end
     end
     return #char.research.doing[craft], char.research.done[craft].max, lowest
 end
