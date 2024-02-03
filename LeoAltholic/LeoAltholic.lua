@@ -1245,15 +1245,6 @@ end
 
 local function initialize()
 
-    local showButton, feedbackWindow = LibFeedback:initializeFeedbackWindow(LeoAltholic,
-        LeoAltholic.name,LeoAltholicWindow, "@LeandroSilva",
-        {TOPRIGHT, LeoAltholicWindow, TOPRIGHT,-50,3},
-        {0,1000,10000,"https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=Y9KM4PZU2UZ6A"},
-        "If you found a bug, have a request or a suggestion, or simply wish to donate, send a mail.")
-    LeoAltholic.feedback = feedbackWindow
-    LeoAltholic.feedback:SetDrawLayer(DL_OVERLAY)
-    LeoAltholic.feedback:SetDrawTier(DT_MEDIUM)
-
     LeoAltholic.RestorePosition()
     LeoAltholicToolbarUI.RestorePosition()
     LeoAltholicChecklistUI.RestorePosition()
