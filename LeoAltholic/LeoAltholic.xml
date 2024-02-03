@@ -232,7 +232,7 @@
 
                 <Backdrop name="LeoAltholicWindowBioPanel" tier="1" centerColor="000000" edgeColor="202020" hidden="true" clampedToScreen="true" movable="false" mouseEnabled="true">
                     <Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="LeoAltholicWindow" offsetX="0" offsetY="52"/>
-                    <Dimensions x="1000" y="648"/>
+                    <Dimensions x="1000" y="700"/>
                     <Edge edgeSize="1"/>
                     <Controls>
                         <Control name="$(parent)ListScroll" inheritAlpha="true">
@@ -286,7 +286,7 @@
                                     </Controls>
                                 </Control>
                                 <Control name="$(parent)List" inherits="ZO_ScrollList">
-                                    <Dimensions x="990" y="600" />
+                                    <Dimensions x="990" y="650" />
                                     <Anchor point="TOPLEFT" relativeTo="$(parent)Headers" relativePoint="BOTTOMLEFT" offsetY="30" />
                                 </Control>
                             </Controls>
@@ -296,7 +296,7 @@
 
                 <Backdrop name="LeoAltholicWindowStatsPanel" tier="1" centerColor="000000" edgeColor="202020" hidden="true" clampedToScreen="true" movable="false" mouseEnabled="true">
                     <Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="LeoAltholicWindow" offsetX="0" offsetY="52"/>
-                    <Dimensions x="1000" y="648"/>
+                    <Dimensions x="1000" y="700"/>
                     <Edge edgeSize="1"/>
                     <Controls>
                         <Control name="$(parent)ListScroll" inheritAlpha="true">
@@ -347,7 +347,7 @@
                                     </Controls>
                                 </Control>
                                 <Control name="$(parent)List" inherits="ZO_ScrollList">
-                                    <Dimensions x="990" y="600" />
+                                    <Dimensions x="990" y="650" />
                                     <Anchor point="TOPLEFT" relativeTo="$(parent)Headers" relativePoint="BOTTOMLEFT" offsetY="30" />
                                 </Control>
                             </Controls>
@@ -357,7 +357,7 @@
 
                 <Backdrop name="LeoAltholicWindowSkillsPanel" tier="1" centerColor="000000" edgeColor="202020" hidden="true" clampedToScreen="true" movable="false" mouseEnabled="true" inherits="ZO_ScrollContainerBase">
                     <Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="LeoAltholicWindow" offsetX="0" offsetY="52"/>
-                    <Dimensions x="1000" y="648"/>
+                    <Dimensions x="1000" y="700"/>
                     <Edge edgeSize="1"/>
                     <Controls>
                         <Control name="$(parent)ListScroll" inheritAlpha="true">
@@ -580,7 +580,7 @@
                                     <Anchor point="BOTTOMLEFT" relativeTo="$(parent)HeadersCraft7" relativePoint="BOTTOMRIGHT" offsetX="4" offsetY="10"/>
                                 </Line>
                                 <Control name="$(parent)List" inherits="ZO_ScrollList">
-                                    <Dimensions x="990" y="600" />
+                                    <Dimensions x="990" y="650" />
                                     <Anchor point="TOPLEFT" relativeTo="$(parent)Headers" relativePoint="BOTTOMLEFT" offsetY="30" />
                                 </Control>
                             </Controls>
@@ -589,7 +589,7 @@
                 </Backdrop>
                 <Backdrop name="LeoAltholicWindowSkills2Panel" tier="1" centerColor="000000" edgeColor="202020" hidden="true" clampedToScreen="true" movable="false" mouseEnabled="true" inherits="ZO_ScrollContainerBase">
                     <Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="LeoAltholicWindow" offsetX="0" offsetY="52"/>
-                    <Dimensions x="1000" y="648"/>
+                    <Dimensions x="1000" y="700"/>
                     <Edge edgeSize="1"/>
                     <Controls>
                         <Control name="$(parent)ListScroll" inheritAlpha="true">
@@ -781,7 +781,7 @@
                                     <Anchor point="BOTTOMLEFT" relativeTo="$(parent)HeadersSupport" relativePoint="BOTTOMRIGHT" offsetX="8" offsetY="10"/>
                                 </Line>
                                 <Control name="$(parent)List" inherits="ZO_ScrollList">
-                                    <Dimensions x="990" y="600" />
+                                    <Dimensions x="990" y="650" />
                                     <Anchor point="TOPLEFT" relativeTo="$(parent)Headers" relativePoint="BOTTOMLEFT" offsetY="30" />
                                 </Control>
                             </Controls>
@@ -791,7 +791,7 @@
 
                 <Backdrop name="LeoAltholicWindowChampionPanel" tier="1" centerColor="000000" edgeColor="202020" hidden="true" clampedToScreen="true" movable="false" mouseEnabled="true">
                     <Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="LeoAltholicWindow" offsetX="0" offsetY="52"/>
-                    <Dimensions x="1000" y="648"/>
+                    <Dimensions x="1000" y="700"/>
                     <Edge edgeSize="1"/>
                     <Controls>
                         <Control name="$(parent)ListScroll" inheritAlpha="true">
@@ -810,7 +810,7 @@
                                     </Controls>
                                 </Control>
                                 <Control name="$(parent)List" inherits="ZO_ScrollList">
-                                    <Dimensions x="990" y="600" />
+                                    <Dimensions x="990" y="650" />
                                     <Anchor point="TOPLEFT" relativeTo="$(parent)Headers" relativePoint="BOTTOMLEFT" offsetY="30" />
                                 </Control>
                             </Controls>
@@ -820,7 +820,7 @@
 
                 <Backdrop name="LeoAltholicWindowTrackedPanel" tier="1" centerColor="000000" edgeColor="202020" hidden="true" clampedToScreen="true" movable="false" mouseEnabled="true" inherits="ZO_ScrollContainerBase">
                     <Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="LeoAltholicWindow" offsetX="0" offsetY="52"/>
-                    <Dimensions x="1000" y="648"/>
+                    <Dimensions x="1000" y="700"/>
                     <Edge edgeSize="1"/>
                     <OnInitialized>ZO_Scroll_Initialize(self)</OnInitialized>
                     <Controls>
@@ -832,7 +832,7 @@
 
                 <Backdrop name="LeoAltholicWindowInventoryPanel" tier="1" centerColor="000000" edgeColor="202020" hidden="true" clampedToScreen="true" movable="false" mouseEnabled="true" inherits="ZO_ScrollContainerBase">
                     <Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="LeoAltholicWindow" offsetX="0" offsetY="52"/>
-                    <Dimensions x="1000" y="648"/>
+                    <Dimensions x="1000" y="700"/>
                     <Edge edgeSize="1"/>
                     <Controls>
                         <Control name="$(parent)ListScroll" inheritAlpha="true">
@@ -898,7 +898,7 @@
 
                 <Backdrop name="LeoAltholicWindowResearchPanel" tier="1" centerColor="000000" edgeColor="202020" hidden="true" clampedToScreen="true" movable="false" mouseEnabled="true">
                     <Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="LeoAltholicWindow" offsetX="0" offsetY="52"/>
-                    <Dimensions x="1000" y="648"/>
+                    <Dimensions x="1000" y="700"/>
                     <Edge edgeSize="1"/>
                     <Controls>
                         <Control name="$(parent)ListScroll" inheritAlpha="true">
@@ -949,7 +949,7 @@
                                     </Controls>
                                 </Control>
                                 <Control name="$(parent)List" inherits="ZO_ScrollList">
-                                    <Dimensions x="990" y="600" />
+                                    <Dimensions x="990" y="650" />
                                     <Anchor point="TOPLEFT" relativeTo="$(parent)Headers" relativePoint="BOTTOMLEFT" offsetY="30" />
                                 </Control>
                             </Controls>
@@ -959,7 +959,7 @@
 
                 <Backdrop name="LeoAltholicWindowWritsPanel" tier="1" centerColor="000000" edgeColor="202020" hidden="true" clampedToScreen="true" movable="false" mouseEnabled="true">
                     <Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="LeoAltholicWindow" offsetX="0" offsetY="52"/>
-                    <Dimensions x="1000" y="648"/>
+                    <Dimensions x="1000" y="700"/>
                     <Edge edgeSize="1"/>
                     <Controls>
                         <Control name="$(parent)ListScroll" inheritAlpha="true">
@@ -1020,7 +1020,7 @@
                                     </Controls>
                                 </Control>
                                 <Control name="$(parent)List" inherits="ZO_ScrollList">
-                                    <Dimensions x="990" y="600" />
+                                    <Dimensions x="990" y="650" />
                                     <Anchor point="TOPLEFT" relativeTo="$(parent)Headers" relativePoint="BOTTOMLEFT" offsetY="30" />
                                 </Control>
                             </Controls>

@@ -9,8 +9,8 @@ end
 Return the timestamp from today's reset (specifically for craft writs)
 ]]
 function LeoAltholic.TodayReset()
-    local diff = zo_floor(GetDiffBetweenTimeStamps(GetTimeStamp(), 1538200800) / 86400)
-    return 1538200800 + (diff * 86400)
+    local diff = zo_floor(GetDiffBetweenTimeStamps(GetTimeStamp(), 1538215200) / 86400)
+    return 1538215200 + (diff * 86400)
 end
 
 --[[
