@@ -3,8 +3,8 @@
 ## Version: 1.9.0
 ## AddOnVersion: 1900
 ## Author: LeandroSilva
-## SavedVariables: LeoAltholicSavedVariables LeoAltholicCharVariables
 ## DependsOn: LibAddonMenu-2.0>=40
+## SavedVariables: LeoAltholicSavedVariables LeoAltholicCharVariables
 
 Lang\en.lua
 Lang\$(language).lua
