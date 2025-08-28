@@ -1,8 +1,8 @@
 ## Title: Leo's Altholic
-## APIVersion: 101046 101047
+## Author: LeandroSilva
 ## Version: 1.9.0
 ## AddOnVersion: 1900
-## Author: LeandroSilva
+## APIVersion: 101047 101048
 ## DependsOn: LibAddonMenu-2.0>=40
 ## SavedVariables: LeoAltholicSavedVariables LeoAltholicCharVariables
 
@@ -27,3 +27,9 @@ LeoAltholicUI.lua
 LeoAltholic_API.lua
 Settings.lua
 Bindings.xml
+
+; This Add-On is not created by, affiliated with or sponsored by ZeniMax Media Inc. or its affiliates.
+; The Elder Scrolls® and related logos are registered trademarks or trademarks of ZeniMax Media Inc. in
+; the United States and/or other countries. All rights reserved.
+;
+; The Add-on Terms of Use can be viewed at https://account.elderscrollsonline.com/add-on-terms.
