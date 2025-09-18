@@ -1097,109 +1097,109 @@
                     <Edge edgeSize="1"/>
                 </Backdrop>
 
-                <Label name="$(parent)Alliance" mouseEnabled="true" font="ZoFontWinH3" normalColor="ffffff" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="CENTER" resizeToFitDescendents="false">
+                <Label name="$(parent)Alliance" mouseEnabled="true" font="ZoFontWinH3" normalColor="ffffff" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="CENTER">
                     <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="10" offsetY="10"/>
                     <Dimensions x="60" y="75"/>
                     <OnMouseEnter> ZO_Tooltips_ShowTextTooltip(self, RIGHT, self.data) </OnMouseEnter>
                     <OnMouseExit> ZO_Tooltips_HideTextTooltip() </OnMouseExit>
                 </Label>
 
-                <Label name="$(parent)Name" font="ZoFontWinH3" normalColor="ffffff" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)Name" font="ZoFontWinH3" normalColor="ffffff" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="80" offsetY="20"/>
                     <Dimensions x="180" y="30"/>
                 </Label>
 
-                <Label name="$(parent)RaceClass" font="ZoFontGame" color="E8DFAF" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)RaceClass" font="ZoFontGame" color="E8DFAF" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="80" offsetY="50"/>
                     <Dimensions x="450" y="30"/>
                 </Label>
 
-                <Label name="$(parent)Quest1Label" mouseEnabled="true" font="ZoFontGame" color="E8DFAF" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="RIGHT" resizeToFitDescendents="false">
+                <Label name="$(parent)Quest1Label" mouseEnabled="true" font="ZoFontGame" color="E8DFAF" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="RIGHT">
                     <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="250" offsetY="4"/>
                     <Dimensions x="160" y="35"/>
                 </Label>
-                <Label name="$(parent)Quest1Done" mouseEnabled="true" font="ZoFontGame" color="FFFFFF" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)Quest1Done" mouseEnabled="true" font="ZoFontGame" color="FFFFFF" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="420" offsetY="4"/>
                     <Dimensions x="120" y="35"/>
                 </Label>
 
-                <Label name="$(parent)Quest2Label" mouseEnabled="true" font="ZoFontGame" color="E8DFAF" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="RIGHT" resizeToFitDescendents="false">
+                <Label name="$(parent)Quest2Label" mouseEnabled="true" font="ZoFontGame" color="E8DFAF" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="RIGHT">
                     <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="580" offsetY="4"/>
                     <Dimensions x="160" y="35"/>
                 </Label>
-                <Label name="$(parent)Quest2Done" mouseEnabled="true" font="ZoFontGame" color="FFFFFF" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)Quest2Done" mouseEnabled="true" font="ZoFontGame" color="FFFFFF" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="760" offsetY="4"/>
                     <Dimensions x="120" y="35"/>
                 </Label>
 
-                <Label name="$(parent)Quest3Label" mouseEnabled="true" font="ZoFontGame" color="E8DFAF" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="RIGHT" resizeToFitDescendents="false">
+                <Label name="$(parent)Quest3Label" mouseEnabled="true" font="ZoFontGame" color="E8DFAF" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="RIGHT">
                     <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="250" offsetY="34"/>
                     <Dimensions x="160" y="35"/>
                 </Label>
-                <Label name="$(parent)Quest3Done" mouseEnabled="true" font="ZoFontGame" color="FFFFFF" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)Quest3Done" mouseEnabled="true" font="ZoFontGame" color="FFFFFF" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="420" offsetY="34"/>
                     <Dimensions x="120" y="35"/>
                 </Label>
 
-                <Label name="$(parent)Quest4Label" mouseEnabled="true" font="ZoFontGame" color="E8DFAF" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="RIGHT" resizeToFitDescendents="false">
+                <Label name="$(parent)Quest4Label" mouseEnabled="true" font="ZoFontGame" color="E8DFAF" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="RIGHT">
                     <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="580" offsetY="34"/>
                     <Dimensions x="160" y="35"/>
                 </Label>
-                <Label name="$(parent)Quest4Done" mouseEnabled="true" font="ZoFontGame" color="FFFFFF" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)Quest4Done" mouseEnabled="true" font="ZoFontGame" color="FFFFFF" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="760" offsetY="34"/>
                     <Dimensions x="120" y="35"/>
                 </Label>
 
-                <Label name="$(parent)Quest5Label" mouseEnabled="true" font="ZoFontGame" color="E8DFAF" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="RIGHT" resizeToFitDescendents="false">
+                <Label name="$(parent)Quest5Label" mouseEnabled="true" font="ZoFontGame" color="E8DFAF" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="RIGHT">
                     <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="250" offsetY="64"/>
                     <Dimensions x="160" y="35"/>
                 </Label>
-                <Label name="$(parent)Quest5Done" mouseEnabled="true" font="ZoFontGame" color="FFFFFF" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)Quest5Done" mouseEnabled="true" font="ZoFontGame" color="FFFFFF" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="420" offsetY="64"/>
                     <Dimensions x="120" y="35"/>
                 </Label>
 
-                <Label name="$(parent)Quest6Label" mouseEnabled="true" font="ZoFontGame" color="E8DFAF" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="RIGHT" resizeToFitDescendents="false">
+                <Label name="$(parent)Quest6Label" mouseEnabled="true" font="ZoFontGame" color="E8DFAF" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="RIGHT">
                     <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="580" offsetY="64"/>
                     <Dimensions x="160" y="35"/>
                 </Label>
-                <Label name="$(parent)Quest6Done" mouseEnabled="true" font="ZoFontGame" color="FFFFFF" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)Quest6Done" mouseEnabled="true" font="ZoFontGame" color="FFFFFF" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="760" offsetY="64"/>
                     <Dimensions x="120" y="35"/>
                 </Label>
 
-                <Label name="$(parent)Quest7Label" mouseEnabled="true" font="ZoFontGame" color="E8DFAF" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="RIGHT" resizeToFitDescendents="false">
+                <Label name="$(parent)Quest7Label" mouseEnabled="true" font="ZoFontGame" color="E8DFAF" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="RIGHT">
                     <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="250" offsetY="94"/>
                     <Dimensions x="160" y="35"/>
                 </Label>
-                <Label name="$(parent)Quest7Done" mouseEnabled="true" font="ZoFontGame" color="FFFFFF" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)Quest7Done" mouseEnabled="true" font="ZoFontGame" color="FFFFFF" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="420" offsetY="94"/>
                     <Dimensions x="120" y="35"/>
                 </Label>
 
-                <Label name="$(parent)Quest8Label" mouseEnabled="true" font="ZoFontGame" color="E8DFAF" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="RIGHT" resizeToFitDescendents="false">
+                <Label name="$(parent)Quest8Label" mouseEnabled="true" font="ZoFontGame" color="E8DFAF" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="RIGHT">
                     <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="580" offsetY="94"/>
                     <Dimensions x="160" y="35"/>
                 </Label>
-                <Label name="$(parent)Quest8Done" mouseEnabled="true" font="ZoFontGame" color="FFFFFF" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)Quest8Done" mouseEnabled="true" font="ZoFontGame" color="FFFFFF" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="760" offsetY="94"/>
                     <Dimensions x="120" y="35"/>
                 </Label>
 
-                <Label name="$(parent)Quest9Label" mouseEnabled="true" font="ZoFontGame" color="E8DFAF" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="RIGHT" resizeToFitDescendents="false">
+                <Label name="$(parent)Quest9Label" mouseEnabled="true" font="ZoFontGame" color="E8DFAF" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="RIGHT">
                     <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="250" offsetY="124"/>
                     <Dimensions x="160" y="35"/>
                 </Label>
-                <Label name="$(parent)Quest9Done" mouseEnabled="true" font="ZoFontGame" color="FFFFFF" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)Quest9Done" mouseEnabled="true" font="ZoFontGame" color="FFFFFF" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="420" offsetY="124"/>
                     <Dimensions x="120" y="35"/>
                 </Label>
 
-                <Label name="$(parent)Quest10Label" mouseEnabled="true" font="ZoFontGame" color="E8DFAF" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="RIGHT" resizeToFitDescendents="false">
+                <Label name="$(parent)Quest10Label" mouseEnabled="true" font="ZoFontGame" color="E8DFAF" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="RIGHT">
                     <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="580" offsetY="124"/>
                     <Dimensions x="160" y="35"/>
                 </Label>
-                <Label name="$(parent)Quest10Done" mouseEnabled="true" font="ZoFontGame" color="FFFFFF" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)Quest10Done" mouseEnabled="true" font="ZoFontGame" color="FFFFFF" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="760" offsetY="124"/>
                     <Dimensions x="120" y="35"/>
                 </Label>
@@ -1210,7 +1210,7 @@
         <Control name="LeoAltholicWritsListTemplate" virtual="true" horizontalAlignment="LEFT" verticalAlignment="CENTER">
             <Dimensions x="990" y="30"/>
             <Controls>
-                <Label name="$(parent)Name" font="ZoFontGame" normalColor="ffffff" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)Name" font="ZoFontGame" normalColor="ffffff" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="2" offsetY="0"/>
                     <Dimensions x="180" y="30"/>
                 </Label>
@@ -1219,7 +1219,7 @@
                     <Dimensions y="24" x="24"/>
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Name" relativePoint="TOPRIGHT" offsetX="10" offsetY="2"/>
                 </Texture>
-                <Label name="$(parent)Craft1Status" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)Craft1Status" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Dimensions x="70" y="28"/>
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Craft1Icon" relativePoint="TOPRIGHT" offsetX="2" offsetY="-2"/>
                 </Label>
@@ -1228,7 +1228,7 @@
                     <Dimensions y="24" x="24"/>
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Craft1Status" relativePoint="TOPRIGHT" offsetX="12" offsetY="2"/>
                 </Texture>
-                <Label name="$(parent)Craft2Status" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)Craft2Status" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Dimensions x="70" y="28"/>
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Craft2Icon" relativePoint="TOPRIGHT" offsetX="2" offsetY="-2"/>
                 </Label>
@@ -1237,7 +1237,7 @@
                     <Dimensions y="24" x="24"/>
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Craft2Status" relativePoint="TOPRIGHT" offsetX="12" offsetY="2"/>
                 </Texture>
-                <Label name="$(parent)Craft6Status" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)Craft6Status" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Dimensions x="70" y="28"/>
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Craft6Icon" relativePoint="TOPRIGHT" offsetX="2" offsetY="-2"/>
                 </Label>
@@ -1246,7 +1246,7 @@
                     <Dimensions y="24" x="24"/>
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Craft6Status" relativePoint="TOPRIGHT" offsetX="12" offsetY="2"/>
                 </Texture>
-                <Label name="$(parent)Craft7Status" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)Craft7Status" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Dimensions x="70" y="28"/>
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Craft7Icon" relativePoint="TOPRIGHT" offsetX="2" offsetY="-2"/>
                 </Label>
@@ -1255,7 +1255,7 @@
                     <Dimensions y="24" x="24"/>
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Craft7Status" relativePoint="TOPRIGHT" offsetX="12" offsetY="2"/>
                 </Texture>
-                <Label name="$(parent)Craft3Status" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)Craft3Status" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Dimensions x="70" y="28"/>
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Craft3Icon" relativePoint="TOPRIGHT" offsetX="2" offsetY="-2"/>
                 </Label>
@@ -1264,7 +1264,7 @@
                     <Dimensions y="24" x="24"/>
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Craft3Status" relativePoint="TOPRIGHT" offsetX="12" offsetY="2"/>
                 </Texture>
-                <Label name="$(parent)Craft4Status" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)Craft4Status" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Dimensions x="70" y="28"/>
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Craft4Icon" relativePoint="TOPRIGHT" offsetX="2" offsetY="-2"/>
                 </Label>
@@ -1273,7 +1273,7 @@
                     <Dimensions y="24" x="24"/>
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Craft4Status" relativePoint="TOPRIGHT" offsetX="12" offsetY="2"/>
                 </Texture>
-                <Label name="$(parent)Craft5Status" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)Craft5Status" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Dimensions x="70" y="28"/>
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Craft5Icon" relativePoint="TOPRIGHT" offsetX="2" offsetY="-2"/>
                 </Label>
@@ -1288,7 +1288,7 @@
         <Control name="LeoAltholicSkillsListTemplate" virtual="true" horizontalAlignment="LEFT" verticalAlignment="CENTER">
             <Dimensions x="990" y="30"/>
             <Controls>
-                <Label name="$(parent)Name" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)Name" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="0" offsetY="0"/>
                     <Dimensions x="180" y="30"/>
                 </Label>
@@ -1297,7 +1297,7 @@
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Name" relativePoint="TOPRIGHT" offsetX="0" offsetY="0"/>
                     <Anchor point="BOTTOMLEFT" relativeTo="$(parent)Name" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0"/>
                 </Line>
-                <Label name="$(parent)Class1" mouseEnabled="true" font="LeoAltholicLargeFont" color="FF0000" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)Class1" mouseEnabled="true" font="LeoAltholicLargeFont" color="FF0000" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Dimensions x="24" y="28"/>
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Name" relativePoint="TOPRIGHT" offsetX="14" offsetY="0"/>
                     <OnMouseEnter> LeoAltholicUI.TooltipSkill(self, true) </OnMouseEnter>
@@ -1307,7 +1307,7 @@
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Class1" relativePoint="TOPRIGHT" offsetX="0" offsetY="0"/>
                     <Anchor point="BOTTOMLEFT" relativeTo="$(parent)Class1" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0"/>
                 </Line>
-                <Label name="$(parent)Class2" mouseEnabled="true" font="LeoAltholicLargeFont" color="FF0000" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)Class2" mouseEnabled="true" font="LeoAltholicLargeFont" color="FF0000" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Dimensions x="24" y="28"/>
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Class1" relativePoint="TOPRIGHT" offsetX="10"/>
                     <OnMouseEnter> LeoAltholicUI.TooltipSkill(self, true) </OnMouseEnter>
@@ -1317,7 +1317,7 @@
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Class2" relativePoint="TOPRIGHT" offsetX="0" offsetY="0"/>
                     <Anchor point="BOTTOMLEFT" relativeTo="$(parent)Class2" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0"/>
                 </Line>
-                <Label name="$(parent)Class3" mouseEnabled="true" font="LeoAltholicLargeFont" color="FF0000" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)Class3" mouseEnabled="true" font="LeoAltholicLargeFont" color="FF0000" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Dimensions x="24" y="28"/>
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Class2" relativePoint="TOPRIGHT" offsetX="10"/>
                     <OnMouseEnter> LeoAltholicUI.TooltipSkill(self, true) </OnMouseEnter>
@@ -1327,7 +1327,7 @@
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Class3" relativePoint="TOPRIGHT" offsetX="0" offsetY="0"/>
                     <Anchor point="BOTTOMLEFT" relativeTo="$(parent)Class3" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0"/>
                 </Line>
-                <Label name="$(parent)Weapon1" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)Weapon1" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Dimensions x="24" y="28"/>
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Class3" relativePoint="TOPRIGHT" offsetX="10"/>
                     <OnMouseEnter> LeoAltholicUI.TooltipSkill(self, true) </OnMouseEnter>
@@ -1337,7 +1337,7 @@
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Weapon1" relativePoint="TOPRIGHT" offsetX="0" offsetY="0"/>
                     <Anchor point="BOTTOMLEFT" relativeTo="$(parent)Weapon1" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0"/>
                 </Line>
-                <Label name="$(parent)Weapon2" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)Weapon2" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Dimensions x="24" y="28"/>
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Weapon1" relativePoint="TOPRIGHT" offsetX="10"/>
                     <OnMouseEnter> LeoAltholicUI.TooltipSkill(self, true) </OnMouseEnter>
@@ -1347,7 +1347,7 @@
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Weapon2" relativePoint="TOPRIGHT" offsetX="0" offsetY="0"/>
                     <Anchor point="BOTTOMLEFT" relativeTo="$(parent)Weapon2" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0"/>
                 </Line>
-                <Label name="$(parent)Weapon3" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)Weapon3" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Dimensions x="24" y="28"/>
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Weapon2" relativePoint="TOPRIGHT" offsetX="10"/>
                     <OnMouseEnter> LeoAltholicUI.TooltipSkill(self, true) </OnMouseEnter>
@@ -1357,7 +1357,7 @@
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Weapon3" relativePoint="TOPRIGHT" offsetX="0" offsetY="0"/>
                     <Anchor point="BOTTOMLEFT" relativeTo="$(parent)Weapon3" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0"/>
                 </Line>
-                <Label name="$(parent)Weapon4" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)Weapon4" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Dimensions x="24" y="28"/>
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Weapon3" relativePoint="TOPRIGHT" offsetX="10"/>
                     <OnMouseEnter> LeoAltholicUI.TooltipSkill(self, true) </OnMouseEnter>
@@ -1367,7 +1367,7 @@
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Weapon4" relativePoint="TOPRIGHT" offsetX="0" offsetY="0"/>
                     <Anchor point="BOTTOMLEFT" relativeTo="$(parent)Weapon4" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0"/>
                 </Line>
-                <Label name="$(parent)Weapon5" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)Weapon5" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Dimensions x="24" y="28"/>
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Weapon4" relativePoint="TOPRIGHT" offsetX="10"/>
                     <OnMouseEnter> LeoAltholicUI.TooltipSkill(self, true) </OnMouseEnter>
@@ -1377,7 +1377,7 @@
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Weapon5" relativePoint="TOPRIGHT" offsetX="0" offsetY="0"/>
                     <Anchor point="BOTTOMLEFT" relativeTo="$(parent)Weapon5" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0"/>
                 </Line>
-                <Label name="$(parent)Weapon6" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)Weapon6" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Dimensions x="24" y="28"/>
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Weapon5" relativePoint="TOPRIGHT" offsetX="10"/>
                     <OnMouseEnter> LeoAltholicUI.TooltipSkill(self, true) </OnMouseEnter>
@@ -1387,7 +1387,7 @@
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Weapon6" relativePoint="TOPRIGHT" offsetX="0" offsetY="0"/>
                     <Anchor point="BOTTOMLEFT" relativeTo="$(parent)Weapon6" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0"/>
                 </Line>
-                <Label name="$(parent)Armor1" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)Armor1" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Dimensions x="24" y="28"/>
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Weapon6" relativePoint="TOPRIGHT" offsetX="10"/>
                     <OnMouseEnter> LeoAltholicUI.TooltipSkill(self, true) </OnMouseEnter>
@@ -1397,7 +1397,7 @@
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Armor1" relativePoint="TOPRIGHT" offsetX="0" offsetY="0"/>
                     <Anchor point="BOTTOMLEFT" relativeTo="$(parent)Armor1" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0"/>
                 </Line>
-                <Label name="$(parent)Armor2" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)Armor2" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Dimensions x="24" y="28"/>
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Armor1" relativePoint="TOPRIGHT" offsetX="10"/>
                     <OnMouseEnter> LeoAltholicUI.TooltipSkill(self, true) </OnMouseEnter>
@@ -1407,7 +1407,7 @@
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Armor2" relativePoint="TOPRIGHT" offsetX="0" offsetY="0"/>
                     <Anchor point="BOTTOMLEFT" relativeTo="$(parent)Armor2" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0"/>
                 </Line>
-                <Label name="$(parent)Armor3" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)Armor3" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Dimensions x="24" y="28"/>
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Armor2" relativePoint="TOPRIGHT" offsetX="10"/>
                     <OnMouseEnter> LeoAltholicUI.TooltipSkill(self, true) </OnMouseEnter>
@@ -1417,7 +1417,7 @@
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Armor3" relativePoint="TOPRIGHT" offsetX="0" offsetY="0"/>
                     <Anchor point="BOTTOMLEFT" relativeTo="$(parent)Armor3" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0"/>
                 </Line>
-                <Label name="$(parent)Racial" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)Racial" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Dimensions x="24" y="28"/>
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Armor3" relativePoint="TOPRIGHT" offsetX="10"/>
                     <OnMouseEnter> LeoAltholicUI.TooltipSkill(self, true) </OnMouseEnter>
@@ -1427,7 +1427,7 @@
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Racial" relativePoint="TOPRIGHT" offsetX="0" offsetY="0"/>
                     <Anchor point="BOTTOMLEFT" relativeTo="$(parent)Racial" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0"/>
                 </Line>
-                <Label name="$(parent)Craft1" mouseEnabled="true" font="LeoAltholicLargeFont" color="FF0000" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)Craft1" mouseEnabled="true" font="LeoAltholicLargeFont" color="FF0000" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Dimensions x="24" y="28"/>
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Racial" relativePoint="TOPRIGHT" offsetX="10"/>
                     <OnMouseEnter> LeoAltholicUI.TooltipSkill(self, true) </OnMouseEnter>
@@ -1437,7 +1437,7 @@
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Craft1" relativePoint="TOPRIGHT" offsetX="0" offsetY="0"/>
                     <Anchor point="BOTTOMLEFT" relativeTo="$(parent)Craft1" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0"/>
                 </Line>
-                <Label name="$(parent)Craft2" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)Craft2" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Dimensions x="24" y="28"/>
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Craft1" relativePoint="TOPRIGHT" offsetX="10"/>
                     <OnMouseEnter> LeoAltholicUI.TooltipSkill(self, true) </OnMouseEnter>
@@ -1447,7 +1447,7 @@
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Craft2" relativePoint="TOPRIGHT" offsetX="0" offsetY="0"/>
                     <Anchor point="BOTTOMLEFT" relativeTo="$(parent)Craft2" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0"/>
                 </Line>
-                <Label name="$(parent)Craft3" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)Craft3" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Dimensions x="24" y="28"/>
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Craft2" relativePoint="TOPRIGHT" offsetX="10"/>
                     <OnMouseEnter> LeoAltholicUI.TooltipSkill(self, true) </OnMouseEnter>
@@ -1457,7 +1457,7 @@
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Craft3" relativePoint="TOPRIGHT" offsetX="0" offsetY="0"/>
                     <Anchor point="BOTTOMLEFT" relativeTo="$(parent)Craft3" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0"/>
                 </Line>
-                <Label name="$(parent)Craft4" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)Craft4" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Dimensions x="24" y="28"/>
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Craft3" relativePoint="TOPRIGHT" offsetX="10"/>
                     <OnMouseEnter> LeoAltholicUI.TooltipSkill(self, true) </OnMouseEnter>
@@ -1467,7 +1467,7 @@
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Craft4" relativePoint="TOPRIGHT" offsetX="0" offsetY="0"/>
                     <Anchor point="BOTTOMLEFT" relativeTo="$(parent)Craft4" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0"/>
                 </Line>
-                <Label name="$(parent)Craft5" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)Craft5" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Dimensions x="24" y="28"/>
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Craft4" relativePoint="TOPRIGHT" offsetX="10"/>
                     <OnMouseEnter> LeoAltholicUI.TooltipSkill(self, true) </OnMouseEnter>
@@ -1477,7 +1477,7 @@
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Craft5" relativePoint="TOPRIGHT" offsetX="0" offsetY="0"/>
                     <Anchor point="BOTTOMLEFT" relativeTo="$(parent)Craft5" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0"/>
                 </Line>
-                <Label name="$(parent)Craft6" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)Craft6" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Dimensions x="24" y="28"/>
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Craft5" relativePoint="TOPRIGHT" offsetX="10"/>
                     <OnMouseEnter> LeoAltholicUI.TooltipSkill(self, true) </OnMouseEnter>
@@ -1487,7 +1487,7 @@
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Craft6" relativePoint="TOPRIGHT" offsetX="0" offsetY="0"/>
                     <Anchor point="BOTTOMLEFT" relativeTo="$(parent)Craft6" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0"/>
                 </Line>
-                <Label name="$(parent)Craft7" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)Craft7" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Dimensions x="24" y="28"/>
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Craft6" relativePoint="TOPRIGHT" offsetX="10"/>
                     <OnMouseEnter> LeoAltholicUI.TooltipSkill(self, true) </OnMouseEnter>
@@ -1508,7 +1508,7 @@
         <Control name="LeoAltholicSkills2ListTemplate" virtual="true" horizontalAlignment="LEFT" verticalAlignment="CENTER">
             <Dimensions x="990" y="30"/>
             <Controls>
-                <Label name="$(parent)Name" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)Name" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="0" offsetY="0"/>
                     <Dimensions x="180" y="30"/>
                 </Label>
@@ -1516,7 +1516,7 @@
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Name" relativePoint="TOPRIGHT" offsetX="0" offsetY="0"/>
                     <Anchor point="BOTTOMLEFT" relativeTo="$(parent)Name" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0"/>
                 </Line>
-                <Label name="$(parent)World1" mouseEnabled="true" font="LeoAltholicLargeFont" color="FF0000" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)World1" mouseEnabled="true" font="LeoAltholicLargeFont" color="FF0000" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Dimensions x="24" y="28"/>
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Name" relativePoint="TOPRIGHT" offsetX="14" offsetY="0"/>
                     <OnMouseEnter> LeoAltholicUI.TooltipSkill(self, true) </OnMouseEnter>
@@ -1526,7 +1526,7 @@
                     <Anchor point="TOPLEFT" relativeTo="$(parent)World1" relativePoint="TOPRIGHT" offsetX="0" offsetY="0"/>
                     <Anchor point="BOTTOMLEFT" relativeTo="$(parent)World1" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0"/>
                 </Line>
-                <Label name="$(parent)World2" mouseEnabled="true" font="LeoAltholicLargeFont" color="FF0000" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)World2" mouseEnabled="true" font="LeoAltholicLargeFont" color="FF0000" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Dimensions x="24" y="28"/>
                     <Anchor point="TOPLEFT" relativeTo="$(parent)World1" relativePoint="TOPRIGHT" offsetX="10"/>
                     <OnMouseEnter> LeoAltholicUI.TooltipSkill(self, true) </OnMouseEnter>
@@ -1536,7 +1536,7 @@
                     <Anchor point="TOPLEFT" relativeTo="$(parent)World2" relativePoint="TOPRIGHT" offsetX="0" offsetY="0"/>
                     <Anchor point="BOTTOMLEFT" relativeTo="$(parent)World2" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0"/>
                 </Line>
-                <Label name="$(parent)World3" mouseEnabled="true" font="LeoAltholicLargeFont" color="FF0000" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)World3" mouseEnabled="true" font="LeoAltholicLargeFont" color="FF0000" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Dimensions x="24" y="28"/>
                     <Anchor point="TOPLEFT" relativeTo="$(parent)World2" relativePoint="TOPRIGHT" offsetX="10"/>
                     <OnMouseEnter> LeoAltholicUI.TooltipSkill(self, true) </OnMouseEnter>
@@ -1546,7 +1546,7 @@
                     <Anchor point="TOPLEFT" relativeTo="$(parent)World3" relativePoint="TOPRIGHT" offsetX="0" offsetY="0"/>
                     <Anchor point="BOTTOMLEFT" relativeTo="$(parent)World3" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0"/>
                 </Line>
-                <Label name="$(parent)World4" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)World4" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Dimensions x="24" y="28"/>
                     <Anchor point="TOPLEFT" relativeTo="$(parent)World3" relativePoint="TOPRIGHT" offsetX="10"/>
                     <OnMouseEnter> LeoAltholicUI.TooltipSkill(self, true) </OnMouseEnter>
@@ -1556,7 +1556,7 @@
                     <Anchor point="TOPLEFT" relativeTo="$(parent)World4" relativePoint="TOPRIGHT" offsetX="0" offsetY="0"/>
                     <Anchor point="BOTTOMLEFT" relativeTo="$(parent)World4" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0"/>
                 </Line>
-                <Label name="$(parent)Guild1" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)Guild1" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Dimensions x="24" y="28"/>
                     <Anchor point="TOPLEFT" relativeTo="$(parent)World4" relativePoint="TOPRIGHT" offsetX="10"/>
                     <OnMouseEnter> LeoAltholicUI.TooltipSkill(self, true) </OnMouseEnter>
@@ -1566,7 +1566,7 @@
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Guild1" relativePoint="TOPRIGHT" offsetX="0" offsetY="0"/>
                     <Anchor point="BOTTOMLEFT" relativeTo="$(parent)Guild1" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0"/>
                 </Line>
-                <Label name="$(parent)Guild2" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)Guild2" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Dimensions x="24" y="28"/>
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Guild1" relativePoint="TOPRIGHT" offsetX="10"/>
                     <OnMouseEnter> LeoAltholicUI.TooltipSkill(self, true) </OnMouseEnter>
@@ -1576,7 +1576,7 @@
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Guild2" relativePoint="TOPRIGHT" offsetX="0" offsetY="0"/>
                     <Anchor point="BOTTOMLEFT" relativeTo="$(parent)Guild2" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0"/>
                 </Line>
-                <Label name="$(parent)Guild3" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)Guild3" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Dimensions x="24" y="28"/>
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Guild2" relativePoint="TOPRIGHT" offsetX="10"/>
                     <OnMouseEnter> LeoAltholicUI.TooltipSkill(self, true) </OnMouseEnter>
@@ -1586,7 +1586,7 @@
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Guild3" relativePoint="TOPRIGHT" offsetX="0" offsetY="0"/>
                     <Anchor point="BOTTOMLEFT" relativeTo="$(parent)Guild3" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0"/>
                 </Line>
-                <Label name="$(parent)Guild4" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)Guild4" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Dimensions x="24" y="28"/>
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Guild3" relativePoint="TOPRIGHT" offsetX="10"/>
                     <OnMouseEnter> LeoAltholicUI.TooltipSkill(self, true) </OnMouseEnter>
@@ -1596,7 +1596,7 @@
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Guild4" relativePoint="TOPRIGHT" offsetX="0" offsetY="0"/>
                     <Anchor point="BOTTOMLEFT" relativeTo="$(parent)Guild4" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0"/>
                 </Line>
-                <Label name="$(parent)Guild5" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)Guild5" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Dimensions x="24" y="28"/>
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Guild4" relativePoint="TOPRIGHT" offsetX="10"/>
                     <OnMouseEnter> LeoAltholicUI.TooltipSkill(self, true) </OnMouseEnter>
@@ -1606,7 +1606,7 @@
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Guild5" relativePoint="TOPRIGHT" offsetX="0" offsetY="0"/>
                     <Anchor point="BOTTOMLEFT" relativeTo="$(parent)Guild5" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0"/>
                 </Line>
-                <Label name="$(parent)Guild6" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)Guild6" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Dimensions x="24" y="28"/>
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Guild5" relativePoint="TOPRIGHT" offsetX="10"/>
                 </Label>
@@ -1614,7 +1614,7 @@
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Guild6" relativePoint="TOPRIGHT" offsetX="0" offsetY="0"/>
                     <Anchor point="BOTTOMLEFT" relativeTo="$(parent)Guild6" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0"/>
                 </Line>
-                <Label name="$(parent)AvA1" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)AvA1" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Dimensions x="24" y="28"/>
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Guild6" relativePoint="TOPRIGHT" offsetX="10"/>
                     <OnMouseEnter> LeoAltholicUI.TooltipSkill(self, true) </OnMouseEnter>
@@ -1624,7 +1624,7 @@
                     <Anchor point="TOPLEFT" relativeTo="$(parent)AvA1" relativePoint="TOPRIGHT" offsetX="0" offsetY="0"/>
                     <Anchor point="BOTTOMLEFT" relativeTo="$(parent)AvA1" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0"/>
                 </Line>
-                <Label name="$(parent)AvA2" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)AvA2" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Dimensions x="24" y="28"/>
                     <Anchor point="TOPLEFT" relativeTo="$(parent)AvA1" relativePoint="TOPRIGHT" offsetX="10"/>
                     <OnMouseEnter> LeoAltholicUI.TooltipSkill(self, true) </OnMouseEnter>
@@ -1634,7 +1634,7 @@
                     <Anchor point="TOPLEFT" relativeTo="$(parent)AvA2" relativePoint="TOPRIGHT" offsetX="0" offsetY="0"/>
                     <Anchor point="BOTTOMLEFT" relativeTo="$(parent)AvA2" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0"/>
                 </Line>
-                <Label name="$(parent)AvA3" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)AvA3" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Dimensions x="24" y="28"/>
                     <Anchor point="TOPLEFT" relativeTo="$(parent)AvA2" relativePoint="TOPRIGHT" offsetX="10"/>
                     <OnMouseEnter> LeoAltholicUI.TooltipSkill(self, true) </OnMouseEnter>
@@ -1739,25 +1739,25 @@
                     <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT"/>
                 </Label>
 
-                <Label name="$(parent)Craft1" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)Craft1" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Name" relativePoint="TOPRIGHT" offsetX="10" offsetY="0"/>
                     <Dimensions x="200" y="35"/>
                     <OnMouseEnter> LeoAltholicUI.TooltipResearch(self, true) </OnMouseEnter>
                     <OnMouseExit> LeoAltholicUI.TooltipResearch(self, false) </OnMouseExit>
                 </Label>
-                <Label name="$(parent)Craft2" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)Craft2" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Craft1" relativePoint="TOPRIGHT" offsetX="10" offsetY="0"/>
                     <Dimensions x="200" y="35"/>
                     <OnMouseEnter> LeoAltholicUI.TooltipResearch(self, true) </OnMouseEnter>
                     <OnMouseExit> LeoAltholicUI.TooltipResearch(self, false) </OnMouseExit>
                 </Label>
-                <Label name="$(parent)Craft6" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)Craft6" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Craft2" relativePoint="TOPRIGHT" offsetX="10" offsetY="0"/>
                     <Dimensions x="200" y="35"/>
                     <OnMouseEnter> LeoAltholicUI.TooltipResearch(self, true) </OnMouseEnter>
                     <OnMouseExit> LeoAltholicUI.TooltipResearch(self, false) </OnMouseExit>
                 </Label>
-                <Label name="$(parent)Craft7" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="false">
+                <Label name="$(parent)Craft7" mouseEnabled="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Craft6" relativePoint="TOPRIGHT" offsetX="10" offsetY="0"/>
                     <Dimensions x="200" y="35"/>
                     <OnMouseEnter> LeoAltholicUI.TooltipResearch(self, true) </OnMouseEnter>
@@ -1859,11 +1859,11 @@
                     <Dimensions y="25" x="25"/>
                     <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="8" offsetY="2" />
                 </Texture>
-                <Label name="$(parent)Qty" hidden="false" mouseEnabled="false" font="LeoAltholicBoldFont" color="ffffff" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="RIGHT" resizeToFitDescendents="true">
+                <Label name="$(parent)Qty" hidden="false" mouseEnabled="false" font="LeoAltholicBoldFont" color="ffffff" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="RIGHT">
                     <Dimensions x="30" y="30" />
                     <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)Icon" relativePoint="BOTTOMRIGHT" offsetX="4" offsetY="4" />
                 </Label>
-                <Label name="$(parent)Item" visible="true" mouseEnabled="true" font="ZoFontWinH4" color="ffffff" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="LEFT" resizeToFitDescendents="true">
+                <Label name="$(parent)Item" visible="true" mouseEnabled="true" font="ZoFontWinH4" color="ffffff" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Dimensions x="386" y="30" />
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Icon" relativePoint="TOPRIGHT" offsetX="8" offsetY="0" />
                 </Label>

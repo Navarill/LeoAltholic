@@ -11,31 +11,29 @@ LeoAltholic.jewelryMaxTraits = select(3,GetSmithingResearchLineInfo(7,1))
 local DARK_BROTHERHOOD = 118
 local THIEVES_GUILD = 117
 local LEGERDEMAIN = 111
-local SOULMAGIC = 72
+local SOUL_MAGIC = 72
 
 function LeoAltholic.GetMaxRank(skillType, skillLine)
     if skillType == SKILL_TYPE_AVA or
-        skillType == SKILL_TYPE_GUILD then
+        skillType == SKILL_TYPE_GUILD or
+		skillType == SKILL_TYPE_WORLD then
         local _, _, _, skillLineId = GetSkillLineInfo(skillType, skillLine)
         if skillLineId == THIEVES_GUILD then
             return 12
         end
         if skillLineId == DARK_BROTHERHOOD then
             return 12
-        end
-        return 10
-    end
-    if skillType == SKILL_TYPE_WORLD then
-        local _, _, _, skillLineId = GetSkillLineInfo(skillType, skillLine)
+		end
         if skillLineId == LEGERDEMAIN then
             return 20
-		elseif skillLineId == SOULMAGIC then
+		end
+		if skillLineId == SOUL_MAGIC then
 			return 6
-        else
-            return 10
-        end
-    end
-    return 50
+		end
+		return 10
+		end
+	return 50
+
 end
 
 local function loadPlayerDataPart(skillType, baseElem)

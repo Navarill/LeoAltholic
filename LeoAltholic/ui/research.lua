@@ -26,6 +26,8 @@ function LeoAltholicResearchList:SetupEntry(control, data)
     control.data = data
 
     control.name = GetControl(control, "Name")
+		local isCurrentPlayer = (data.name == LeoAltholic.CharName)
+		local now = GetTimeStamp()
     control.name:SetText(data.name)
 
     local color
@@ -41,6 +43,14 @@ function LeoAltholicResearchList:SetupEntry(control, data)
         local first
         local list = {}
         for _, research in pairs(data.research.doing[craft]) do
+		
+			if isCurrentPlayer then
+			local _, remaining = GetSmithingResearchLineTraitTimes(craft, research.line, research.trait)
+				research.doneAt = remaining + now
+			else
+			local remaining = GetDiffBetweenTimeStamps(research.doneAt, now)
+				research.doneAt = remaining + now
+			end
 
             if research.doneAt ~= nil and research.doneAt - GetTimeStamp() < 0 then
                 researching = researching - 1

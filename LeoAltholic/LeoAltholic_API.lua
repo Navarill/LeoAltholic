@@ -9,8 +9,8 @@ end
 Return the timestamp from today's reset (specifically for craft writs)
 ]]
 function LeoAltholic.TodayReset()
-    local diff = zo_floor(GetDiffBetweenTimeStamps(GetTimeStamp(), 1538215200) / 86400)
-    return 1538215200 + (diff * 86400)
+    local diff = zo_floor(GetDiffBetweenTimeStamps(GetTimeStamp(), 1538200800) / 86400)
+    return 1538200800 + (diff * 86400)
 end
 
 --[[
@@ -203,6 +203,16 @@ function LeoAltholic.GetResearchCounters(craft, charName)
     if #char.research.doing[craft] > 0 then
         local research = char.research.doing[craft][1]
         lowest = research.doneAt
+		if charName == LeoAltholic.charName then
+		local _, remaining = GetSmithingResearchLineTraitTimes(craft, research.line, research.trait)
+		if remaining ~= nil then
+			research.doneAt = remaining + GetTimeStamp()
+		end
+		else
+		local now = GetTimeStamp()
+		local remaining = GetDiffBetweenTimeStamps(research.doneAt, now)
+		research.doneAt = remaining + now
+		end
     end
     return #char.research.doing[craft], char.research.done[craft].max, lowest
 end
