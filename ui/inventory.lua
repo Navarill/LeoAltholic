@@ -32,7 +32,7 @@ local function formatNumber(amount)
     if type(amount) == "string" then amount = tonumber( amount ) end
     if type(amount) ~= "number" then return amount; end
     if amount < 1000 then return amount; end
-    return FormatIntegerWithDigitGrouping( amount, GetString( SI_DIGIT_GROUP_SEPARATOR ) )
+    return FormatIntegerWithDigitGrouping( amount, GetString( SI_DIGIT_GROUP_SEPARATOR ), 3 )
 end
 
 function LeoAltholicInventoryList:SetupEntry(control, data)
@@ -67,23 +67,6 @@ function LeoAltholicInventoryList:SetupEntry(control, data)
     control.listButton:SetHandler('OnClicked', function() LeoAltholic.ShowInventoryUI(data.name, BAG_BACKPACK) end)
 
     ZO_SortFilterList.SetupRow(self, control, data)
-end
-
-function LeoAltholicStatsList:ColorRow(control, data, mouseIsOver)
-
-    local color = ZO_SECOND_CONTRAST_TEXT
-    local r, g, b = GetInterfaceColor(INTERFACE_COLOR_TYPE_ITEM_QUALITY_COLORS, ITEM_QUALITY_MAGIC)
-
-    for i = 1, control:GetNumChildren() do
-        local child = control:GetChild(i)
-        if child then
-            if data.name == LeoAltholic.CharName then
-                child:SetColor(r, g, b)
-            else
-                child:SetColor(color:UnpackRGBA())
-            end
-        end
-    end
 end
 
 function LeoAltholicInventoryList:ColorRow(control, data, mouseIsOver)
@@ -206,7 +189,7 @@ function LeoAltholicUI.UpdateInventory()
     local color = '|c'..LeoAltholic.color.hex.green
     if free <= 25 then color = '|c'..LeoAltholic.color.hex.orange end
     if free <= 10 then color = '|c'..LeoAltholic.color.hex.red end
-    control = GetControl(bankRow, "Bag")
+    local control = GetControl(bankRow, "Bag")
     control:SetText(color .. used .. "|r / " .. size)
 
     control = GetControl(bankRow, "Gold")

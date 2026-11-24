@@ -5,8 +5,8 @@ LeoAltholic.lastUpdatedCharList = nil
 LeoAltholic.initialized = false
 LeoAltholic.numUpdates = 0
 
-LeoAltholic.maxTraits = select(3,GetSmithingResearchLineInfo(1,1))
-LeoAltholic.jewelryMaxTraits = select(3,GetSmithingResearchLineInfo(7,1))
+LeoAltholic.maxTraits = select(3,GetSmithingResearchLineInfo(CRAFTING_TYPE_BLACKSMITHING,1))
+LeoAltholic.jewelryMaxTraits = select(3,GetSmithingResearchLineInfo(CRAFTING_TYPE_JEWELRYCRAFTING,1))
 
 local DARK_BROTHERHOOD = 118
 local THIEVES_GUILD = 117
@@ -247,7 +247,7 @@ local function initCharsData()
     char.bio.effectiveLevel = GetUnitEffectiveLevel("player")
     char.bio.isChampion = IsUnitChampion("player")
     char.bio.canChampion = CanUnitGainChampionPoints("player")
-    char.bio.championPoints = GetPlayerChampionPointsEarned("player")
+    char.bio.championPoints = GetPlayerChampionPointsEarned()
     char.bio.race = GetUnitRace("player")
     char.bio.raceId = GetUnitRaceId("player")
     char.bio.class = GetUnitClass("player")
@@ -266,7 +266,7 @@ local function initCharsData()
     if ridetime > 1 then ridetime = ridetime + GetTimeStamp() end
 
     if char.attributes and char.attributes.riding and char.attributes.riding.time and char.attributes.riding.time > 0 and
-            GetDiffBetweenTimeStamps(char.attributes.riding.time - GetTimeStamp()) < 0 then
+            GetDiffBetweenTimeStamps(char.attributes.riding.time, GetTimeStamp()) < 0 then
         local data = {
             id = '$M' .. char.bio.name,
             charName = char.bio.name,
@@ -335,7 +335,6 @@ local function initCharsData()
         physical   = getStat(STAT_PHYSICAL_RESIST),
         spell_mitigation  = getStat(STAT_SPELL_MITIGATION),
         miss              = getStat(STAT_MISS),
-        parry             = getStat(STAT_PARRY),
         block             = getStat(STAT_BLOCK),
         dodge             = getStat(STAT_DODGE)
     }
@@ -394,50 +393,6 @@ local function initCharsData()
         local skillType0, skillId = GetCraftingSkillLineIndices(craft)
         local _, rank = GetSkillLineInfo(skillType0,skillId)
         return {rank = rank, max = GetMaxSimultaneousSmithingResearch(craft) or 1}
-    end
-
-    if char.research ~= nil and char.research.doing ~= nil then
-        for _,craft in pairs(LeoAltholic.craftResearch) do
-            if char.research.doing[craft] ~= nil then
-                for line = 1, GetNumSmithingResearchLines(craft) do
-                    local lineName, lineIcon = GetSmithingResearchLineInfo(craft, line)
-                    for trait = 1, LeoAltholic.maxTraits do
-                        local traitType, _, known = GetSmithingResearchLineTraitInfo(craft, line, trait)
-                        if known then
-                            char.research.done[craft][line][trait] = true
-                        else
-                            local _,remaining = GetSmithingResearchLineTraitTimes(craft,line,trait)
-                            if remaining and remaining > 0 then
-                                table.insert(char.research.doing[craft], {
-                                    craft = craft,
-                                    line = line,
-                                    trait = trait,
-                                    remaining = remaining,
-                                    doneAt = remaining + GetTimeStamp()
-                                })
-                                local data = {
-                                    id = '$R' .. char.bio.name..craft..line..trait,
-                                    charName = char.bio.name,
-                                    info = ZO_CachedStrFormat(
-                                            GetString(LEOALT_RESEARCH_FINISHED) .. ': |c00FF00<<C:2>> <<C:3>>|r.',
-                                            char.bio.name,
-                                            GetString('SI_ITEMTRAITTYPE',traitType),
-                                            lineName
-                                    ),
-                                    time = remaining + GetTimeStamp()
-                                }
-                                LeoAltholic.AddToQueue(data)
-                            end
-                        end
-                    end
-                end
-                table.sort(char.research.doing[craft], function(a, b)
-                    if a.remaining == nil then a.remaining = 0 end
-                    if b.remaining == nil then b.remaining = 0 end
-                    return a.remaining < b.remaining
-                end)
-            end
-        end
     end
 
     char.research = {}
@@ -715,6 +670,7 @@ end
 
 local function onResearchStarted(eventCode, craft, line, trait)
     local _,remaining = GetSmithingResearchLineTraitTimes(craft,line,trait)
+    if not remaining then return end
     table.insert(LeoAltholic.globalData.CharList[LeoAltholic.CharName].research.doing[craft], {
         craft = craft,
         line = line,
@@ -782,7 +738,7 @@ end
 
 local function charStillExists(charName)
     for _, char in pairs(LeoAltholic.GetCharacters()) do
-        if char.bio.name ~= charName then
+        if char.bio.name == charName then
             return true
         end
     end
@@ -809,7 +765,7 @@ end
 local function createMessageQueue()
     for _, char in pairs(LeoAltholic.GetCharacters()) do
         if char.bio.name ~= LeoAltholic.CharName then
-            if GetDiffBetweenTimeStamps(char.attributes.riding.time - GetTimeStamp()) < 0 then
+            if char.attributes.riding.time and char.attributes.riding.time > 0 and GetDiffBetweenTimeStamps(char.attributes.riding.time, GetTimeStamp()) < 0 then
                 local data = {
                     id = '$M' .. char.bio.name,
                     charName = char.bio.name,
@@ -1304,19 +1260,15 @@ local function initialize()
     LeoAltholicUI.InitInventory()
 end
 
-local orig_ZO_QuestJournalNavigationEntry_OnMouseUp = ZO_QuestJournalNavigationEntry_OnMouseUp
-
-function ZO_QuestJournalNavigationEntry_OnMouseUp(label, button, upInside)
-    orig_ZO_QuestJournalNavigationEntry_OnMouseUp(label, button, upInside)
-    if button == MOUSE_BUTTON_INDEX_RIGHT and upInside then
-        local questIndex = label.node.data.questIndex
+if QUEST_JOURNAL_KEYBOARD and QUEST_JOURNAL_KEYBOARD.ShowContextMenu then
+    ZO_PostHook(QUEST_JOURNAL_KEYBOARD, "ShowContextMenu", function(self, questIndex)
         if questIndex and GetJournalQuestRepeatType(questIndex) == QUEST_REPEAT_DAILY then
             AddMenuItem("Track with " .. LeoAltholic.displayName, function()
                 trackQuest(questIndex)
             end)
-            ShowMenu(label)
+            ShowMenu(self.control)
         end
-    end
+    end)
 end
 
 local function onNewMovementInUIMode(eventCode)
@@ -1330,12 +1282,12 @@ local function onChampionPerksSceneStateChange(oldState,newState)
 end
 
 local function onPlayerDeactivated(event, addonName)
-    EVENT_MANAGER:UnregisterForEvent(LeoAltholic.Name, EVENT_PLAYER_DEACTIVATED)
+    EVENT_MANAGER:UnregisterForEvent(LeoAltholic.name, EVENT_PLAYER_DEACTIVATED)
     initCharsData()
     initAccountData()
 end
 
-local function onRidingSkillImprovement(ridingSkill, previous, current, source)
+local function onRidingSkillImprovement(eventCode, ridingSkill, previous, current, source)
     local riding = {GetRidingStats()}
     local ridetime = GetTimeUntilCanBeTrained()/1000 or 0
     if ridetime > 1 then ridetime = ridetime + GetTimeStamp() end

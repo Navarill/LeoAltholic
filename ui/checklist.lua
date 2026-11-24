@@ -274,9 +274,6 @@ function LeoAltholicChecklistUI.checkAllDone()
 end
 
 function LeoAltholicChecklistUI.doneWrit(craft)
-    lastUpdated = nil
-    lastPreDeliver = nil
---TevaNOTE: above lines added by Teva
     if not LeoAltholicChecklistUI.IsEnabled() then return end
     local label = GetControl(panel, "Craft"..craft)
     local texture = GetControl(panel, "Craft"..craft.."Status")
@@ -285,8 +282,6 @@ function LeoAltholicChecklistUI.doneWrit(craft)
 end
 
 function LeoAltholicChecklistUI.betweenWrit(craft) --Teva added this function
-    lastUpdated = nil
-    lastPreDeliver = nil
     if not LeoAltholicChecklistUI.IsEnabled() then return end
     local label = GetControl(panel, "Craft"..craft)
     local texture = GetControl(panel, "Craft"..craft.."Status")
@@ -315,10 +310,6 @@ function LeoAltholicChecklistUI.preDeliverWrit(craft)
 end
 
 function LeoAltholicChecklistUI.stoppedWrit(craft)
-    lastStarted = nil
-    lastUpdated = nil
-    lastPreDeliver = nil
---TevaNOTE: above lines added by Teva
     if not LeoAltholicChecklistUI.IsEnabled() then return end
     local label = GetControl(panel, "Craft"..craft)
     local texture = GetControl(panel, "Craft"..craft.."Status")

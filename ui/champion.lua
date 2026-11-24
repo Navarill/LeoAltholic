@@ -27,22 +27,28 @@ function LeoAltholicChampionList:SetupEntry(control, data)
     control.name = GetControl(control, "Name")
     control.name:SetText(data.name)
 
-    local icons = {
-        [LeoAltholic.CHAMPION_WARFARE] = "champion_points_magicka_icon",
-        [LeoAltholic.CHAMPION_FITNESS] = "champion_points_health_icon",
-        [LeoAltholic.CHAMPION_CRAFT] = "champion_points_stamina_icon"
+   local icons = {
+        [CHAMPION_DISCIPLINE_TYPE_COMBAT] = "champion_points_magicka_icon",       -- Blue (Warfare)
+        [CHAMPION_DISCIPLINE_TYPE_CONDITIONING] = "champion_points_health_icon",  -- Red (Fitness)
+        [CHAMPION_DISCIPLINE_TYPE_WORLD] = "champion_points_stamina_icon",        -- Green (Craft)
     }
 
     control.disc = {};
     for disciplineIndex = 1, GetNumChampionDisciplines() do
         local disciplineId = GetChampionDisciplineId(disciplineIndex)
+        local disciplineType = GetChampionDisciplineType(disciplineId)
         control.disc[disciplineIndex] = GetControl(control, "Disc" .. disciplineIndex)
-        local total = data.champion[disciplineIndex].spent + data.champion[disciplineIndex].unspent
-        local color = '|c'..LeoAltholic.color.hex.green
-        if data.champion[disciplineIndex].unspent > 0 then
-            color = '|c'..LeoAltholic.color.hex.red
+        if data.champion and data.champion[disciplineIndex] then
+            local total = data.champion[disciplineIndex].spent + data.champion[disciplineIndex].unspent
+            local color = '|c'..LeoAltholic.color.hex.green
+            if data.champion[disciplineIndex].unspent > 0 then
+                color = '|c'..LeoAltholic.color.hex.red
+            end
+            local icon = icons[disciplineType] or "champion_points_magicka_icon"
+            control.disc[disciplineIndex]:SetText("|t24:24:esoui/art/tutorial/" .. icon .. ".dds|t "..color .. data.champion[disciplineIndex].spent .. '/' .. total .. '|r    ')
+        else
+            control.disc[disciplineIndex]:SetText("-")
         end
-        control.disc[disciplineIndex]:SetText("|t24:24:esoui/art/tutorial/" .. icons[disciplineId] .. ".dds|t "..color .. data.champion[disciplineIndex].spent .. '/' .. total .. '|r    ')
         control.disc[disciplineIndex].champion = data.champion
         control.disc[disciplineIndex].attribute = disciplineIndex
     end

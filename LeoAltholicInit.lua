@@ -19,9 +19,9 @@ LeoAltholic.TAB_WRITS = "Writs"
 LeoAltholic.TAB_INVENTORY = "Inventory"
 LeoAltholic.TAB_RESEARCH = "Research"
 
-LeoAltholic.CHAMPION_WARFARE = 1
-LeoAltholic.CHAMPION_FITNESS = 2
-LeoAltholic.CHAMPION_CRAFT = 3
+LeoAltholic.CHAMPION_CRAFT = 1
+LeoAltholic.CHAMPION_WARFARE = 2
+LeoAltholic.CHAMPION_FITNESS = 3
 
 LeoAltholic.panelList = {
     LeoAltholic.TAB_BIO,
@@ -72,7 +72,7 @@ LeoAltholic.color = {
     rgba = {
         green = {0,1,0,1},
         white = {1,1,1,1},
-        red = {1,0.25,0.12},
+        red = {1,0.25,0.12,1},
         yellow = {1,1,0,1},
         orange = {1,0.8,0,1},
     }

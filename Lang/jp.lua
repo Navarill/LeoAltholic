@@ -25,7 +25,7 @@ ZO_CreateStringId("LEOALT_MAXIMUM", "最大")
 ZO_CreateStringId("LEOALT_RECOVERY", "回復")
 
 ZO_CreateStringId("LEOALT_WRIT", "依頼を調べる")
-ZO_CreateStringId("LEOALT_DELIVER", "Deliver")
+ZO_CreateStringId("LEOALT_DELIVER", "届ける")
 ZO_CreateStringId("LEOALT_ALCHEMIST", "錬金術")
 ZO_CreateStringId("LEOALT_BLACKSMITH", "鍛冶")
 ZO_CreateStringId("LEOALT_CLOTHIER", "仕立")

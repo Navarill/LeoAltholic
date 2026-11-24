@@ -1681,7 +1681,7 @@
                 </Label>
                 <Line name="$(parent)HorizLine" color="444444" thickness="2" pixelRoundingEnabled="true">
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Name" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="0"/>
-                    <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)Craft7" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="2"/>
+                    <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)Disc3" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="2"/>
                 </Line>
             </Controls>
         </Control>
@@ -1863,7 +1863,7 @@
                     <Dimensions x="30" y="30" />
                     <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)Icon" relativePoint="BOTTOMRIGHT" offsetX="4" offsetY="4" />
                 </Label>
-                <Label name="$(parent)Item" visible="true" mouseEnabled="true" font="ZoFontWinH4" color="ffffff" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="LEFT">
+                <Label name="$(parent)Item" hidden="false" mouseEnabled="true" font="ZoFontWinH4" color="ffffff" inheritAlpha="true" verticalAlignment="CENTER" horizontalAlignment="LEFT">
                     <Dimensions x="386" y="30" />
                     <Anchor point="TOPLEFT" relativeTo="$(parent)Icon" relativePoint="TOPRIGHT" offsetX="8" offsetY="0" />
                 </Label>
@@ -1897,7 +1897,7 @@
 <!--Teva added the section below-->
                 <Texture name="$(parent)BankSizeTexture" hidden="true" textureFile="/esoui/art/icons/mapkey/mapkey_bank.dds">
                     <Dimensions y="30" x="28"/>
-                    <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="0" verticalAlignment="CENTER"/>
+                    <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="0"/>
                 </Texture>
                 <Label name="$(parent)Bank" hidden="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER">
                     <Dimensions x="70" y="32" />
@@ -1944,7 +1944,7 @@
                 </Texture>
                 <Label name="$(parent)Craft7" hidden="true" font="LeoAltholicLargeFont" verticalAlignment="CENTER">
                     <Dimensions x="100" y="32" />
-                    <Anchor point="TOPLEFT" relativeTo="$(parent)Craft6Texture" relativePoint="TOPRIGHT" offsetX="2" offsetY="0"/>
+                    <Anchor point="TOPLEFT" relativeTo="$(parent)Craft7Texture" relativePoint="TOPRIGHT" offsetX="2" offsetY="0"/>
                 </Label>
                 <Texture name="$(parent)HirelingTexture" hidden="true" textureFile="/esoui/art/chatwindow/chat_mail_up.dds">
                     <Dimensions y="32" x="32"/>

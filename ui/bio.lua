@@ -58,6 +58,9 @@ function LeoAltholicBioList:SetupEntry(control, data)
     elseif data.alliance.id == ALLIANCE_DAGGERFALL_COVENANT then
         icon = 'esoui/Art/guild/guildbanner_icon_daggerfall.dds'
         allianceName = ZO_CachedStrFormat(SI_ALLIANCE_NAME, GetAllianceName(ALLIANCE_DAGGERFALL_COVENANT))
+    else
+        icon = ZO_GetAllianceIcon(ALLIANCE_NONE) or 'esoui/art/guild/guildbanner_icon_aldmeri.dds'
+        allianceName = GetString(SI_ALLIANCE0)
     end
     control.alliance:SetText("|t30:30:" .. icon .. "|t ".. allianceName)
 
@@ -143,9 +146,9 @@ end
 function LeoAltholicUI:updateBio()
     local control = LeoAltholicWindowBioPanelListScrollListContents
     for i = 1, control:GetNumChildren() do
-        local child = control:GetChild(i):GetChild(8)
+        local child = GetControl(control:GetChild(i), "Riding")
 		
-		if child ~= nil then
+		if child ~= nil and child.riding ~= nil then
 			local riding = '|t20:20:esoui/art/mounts/ridingskill_speed.dds|t' .. string.format("%02d%%", child.riding.speed) ..
 				' |t20:20:esoui/art/mounts/ridingskill_stamina.dds|t' .. string.format("%02d", child.riding.stamina) ..
                 ' |t20:20:esoui/art/mounts/ridingskill_capacity.dds|t' .. string.format("%02d", child.riding.capacity)

@@ -128,7 +128,7 @@ function LeoAltholic_Settings:CreatePanel()
                     end,
                 },{
                     type = "checkbox",
-                    name = GetString(SI_ITEMFILTERTYPE25),
+                    name = GetString(SI_ITEMFILTERTYPE24),
                     default = true,
                     disabled = function() return not LeoAltholicChecklistUI.IsEnabled() end,
                     width = "half",

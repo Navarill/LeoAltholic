@@ -45,10 +45,12 @@ function LeoAltholicResearchList:SetupEntry(control, data)
         for _, research in pairs(data.research.doing[craft]) do
 		
 			if isCurrentPlayer then
-			local _, remaining = GetSmithingResearchLineTraitTimes(craft, research.line, research.trait)
-				research.doneAt = remaining + now
+				local _, remaining = GetSmithingResearchLineTraitTimes(craft, research.line, research.trait)
+				if remaining ~= nil then
+					research.doneAt = remaining + now
+				end
 			else
-			local remaining = GetDiffBetweenTimeStamps(research.doneAt, now)
+				local remaining = GetDiffBetweenTimeStamps(research.doneAt, now)
 				research.doneAt = remaining + now
 			end
 
@@ -161,7 +163,7 @@ function LeoAltholicUI.TooltipResearch(control, visible)
 
     if visible then
         if #control.list == 0 then return end
-        if not parent then parent = control end
+        local parent = control
 
         InitializeTooltip(InformationTooltip, control, LEFT, -30, 0)
 

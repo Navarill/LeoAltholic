@@ -51,10 +51,12 @@ function LeoAltholicStatsList:ColorRow(control, data, mouseIsOver)
 
     for i = 1, control:GetNumChildren() do
         local child = control:GetChild(i)
-        if data.name == LeoAltholic.CharName then
-            child:SetColor(r, g, b)
-        else
-            child:SetColor(color:UnpackRGBA())
+        if child and child:GetType() == CT_LABEL then
+            if data.name == LeoAltholic.CharName then
+                child:SetColor(r, g, b)
+            else
+                child:SetColor(color:UnpackRGBA())
+            end
         end
     end
 end

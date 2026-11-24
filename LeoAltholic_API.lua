@@ -81,9 +81,10 @@ end
 
 function LeoAltholic.TimeAgo(timestamp)
     local diff = GetTimeStamp() - timestamp
+    local ago
     if diff < 3600 then
         ago = ZO_CachedStrFormat(GetString(SI_TIME_FORMAT_MINUTES), math.floor(diff / 60))
-    elseif diff < 3600 then
+    elseif diff < 86400 then
         ago = ZO_CachedStrFormat(GetString(SI_TIME_FORMAT_HOURS), math.floor(diff / 3600))
     else
         ago = ZO_CachedStrFormat(GetString(SI_TIME_FORMAT_DAYS), math.floor(diff / 86400))
@@ -101,7 +102,7 @@ function LeoAltholic.IsWritDoneToday(craft, charName)
     for _, writ in pairs(char.quests.writs) do
         if craft == writ.craft then
 --            return writ.lastDone ~= nil and LeoAltholic.IsAfterReset(writ.lastDone)    --original code, Teva added 2 conditions as shown on the next line
-            return writ.lastDone ~= nil and LeoAltholic.IsAfterReset(writ.lastDone) and writ.lastDone > writ.lastStarted and LeoAltholic.IsAfterReset(writ.lastStarted)
+            return writ.lastDone ~= nil and writ.lastStarted ~= nil and LeoAltholic.IsAfterReset(writ.lastDone) and writ.lastDone > writ.lastStarted and LeoAltholic.IsAfterReset(writ.lastStarted)
         end
     end
     return false
@@ -160,14 +161,17 @@ end
 function LeoAltholic.ResearchStatus(craftSkill, line, trait, charName)
     if not charName then charName = LeoAltholic.CharName end
     local char = LeoAltholic.globalData.CharList[charName]
+    if not char then return false, false end
 
     local isKnown = LeoAltholic.CharKnowsTrait(craftSkill, line, trait, charName)
     local isResearching = false
 
-    for _, researching in pairs(char.research.doing[craftSkill]) do
-        if researching.line == line and researching.trait == trait then
-            isResearching = researching.doneAt < GetTimeStamp()
-            break
+    if char.research and char.research.doing and char.research.doing[craftSkill] then
+        for _, researching in pairs(char.research.doing[craftSkill]) do
+            if researching.line == line and researching.trait == trait then
+                isResearching = researching.doneAt ~= nil and researching.doneAt > GetTimeStamp()
+                break
+            end
         end
     end
 
@@ -202,17 +206,17 @@ function LeoAltholic.GetResearchCounters(craft, charName)
     local lowest = -1
     if #char.research.doing[craft] > 0 then
         local research = char.research.doing[craft][1]
+        if charName == LeoAltholic.CharName then
+            local _, remaining = GetSmithingResearchLineTraitTimes(craft, research.line, research.trait)
+            if remaining ~= nil then
+                research.doneAt = remaining + GetTimeStamp()
+            end
+        else
+            local now = GetTimeStamp()
+            local remaining = GetDiffBetweenTimeStamps(research.doneAt, now)
+            research.doneAt = remaining + now
+        end
         lowest = research.doneAt
-		if charName == LeoAltholic.charName then
-		local _, remaining = GetSmithingResearchLineTraitTimes(craft, research.line, research.trait)
-		if remaining ~= nil then
-			research.doneAt = remaining + GetTimeStamp()
-		end
-		else
-		local now = GetTimeStamp()
-		local remaining = GetDiffBetweenTimeStamps(research.doneAt, now)
-		research.doneAt = remaining + now
-		end
     end
     return #char.research.doing[craft], char.research.done[craft].max, lowest
 end

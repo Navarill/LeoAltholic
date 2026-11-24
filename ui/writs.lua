@@ -89,7 +89,7 @@ function LeoAltholicWritsList:SetupEntry(control, data)
             child:SetHandler("OnMouseExit", function(self) ClearTooltip(InformationTooltip) end)
             child:SetMouseEnabled(true)
         else
-            child:SetMouseEnabled(true)
+            child:SetMouseEnabled(false)
         end
     end
 

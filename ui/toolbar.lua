@@ -82,7 +82,7 @@ function LeoAltholicToolbarUI.GetItem(item)
     return LeoAltholic.globalData.settings.toolbar.items[item]
 end
 
-function checkCenter()
+local function checkCenter()
     if LeoAltholicToolbar:GetTop() <= 60 or LeoAltholicToolbar:GetTop() >= 1500 then --Teva added the second condition
         local x = LeoAltholicToolbar:GetCenter()
         local guiRootX = GuiRoot:GetCenter()
@@ -132,7 +132,7 @@ end
 function LeoAltholicUI.TooltipWarning(control, visible)
 
     if visible and hasExpiredQueue() then
-        if not parent then parent = control end
+        local parent = control
         InitializeTooltip(InformationTooltip, control, TOPLEFT, -100, 40, TOPLEFT)
         for x,data in pairs(LeoAltholic.timerQueue) do
             if GetDiffBetweenTimeStamps(data.time, GetTimeStamp()) <= 0 then
@@ -183,7 +183,6 @@ function LeoAltholicToolbarUI.update()
     local bankused = GetNumBagUsedSlots(BAG_BANK) + GetNumBagUsedSlots(BAG_SUBSCRIBER_BANK)
     local banksize = bankfree + bankused
 
-    line = GetControl(toolbar, "BankSize")
     label = GetControl(toolbar, "Bank")
     texture = GetControl(toolbar, "BankSizeTexture")
     label:SetHidden(true)
