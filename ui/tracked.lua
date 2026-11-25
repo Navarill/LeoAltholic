@@ -26,7 +26,7 @@ function LeoAltholicUI.InitTrackedPanel()
 
                 row:SetAnchor(TOPLEFT,sc,TOPLEFT,0,(numRows - 1) * anchorY)
                 bg = row:GetNamedChild("BG")
-                if char.bio.name == LeoAltholic.CharName then
+                if char.bio.id == LeoAltholic.CharId then
                     bg:SetCenterColor(unpack({0.1,0.1,0.1,1 }))
                     bg:SetEdgeColor(0.2,0.7,0.2,1)
                 end
@@ -52,7 +52,7 @@ function LeoAltholicUI.InitTrackedPanel()
                         label:SetHandler('OnMouseUp', function(control, button, upInside)
                             if upInside == true and button == MOUSE_BUTTON_INDEX_RIGHT then
                                 LeoAltholic.log(ZO_CachedStrFormat(GetString(LEOALT_REMOVED_FROM), label:GetText(), char.bio.name))
-                                table.remove(LeoAltholic.globalData.CharList[char.bio.name].quests.tracked, i)
+                                table.remove(LeoAltholic.globalData.CharList[char.bio.id].quests.tracked, i)
                                 control:SetHidden(true)
                                 control:GetParent():GetNamedChild("Quest" .. index .. "Done"):SetHidden(true)
                             end

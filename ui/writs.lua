@@ -103,7 +103,7 @@ function LeoAltholicWritsList:ColorRow(control, data, mouseIsOver)
     local r, g, b = GetInterfaceColor(INTERFACE_COLOR_TYPE_ITEM_QUALITY_COLORS, ITEM_QUALITY_MAGIC)
 
     local child = GetControl(control, "Name")
-    if data.name == LeoAltholic.CharName then
+    if data.id == LeoAltholic.CharId then
         child:SetColor(r, g, b)
     else
         child:SetColor(color:UnpackRGBA())
@@ -115,6 +115,7 @@ function LeoAltholicWritsList:BuildMasterList()
     local list = LeoAltholic.ExportCharacters(true)
     for k, v in ipairs(list) do
         local data = {
+            id = v.bio.id,
             name = v.bio.name,
             writs = v.quests.writs or {}
         }

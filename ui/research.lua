@@ -1,4 +1,3 @@
-
 LeoAltholicResearchList = ZO_SortFilterList:Subclass()
 function LeoAltholicResearchList:New(control)
 
@@ -26,8 +25,8 @@ function LeoAltholicResearchList:SetupEntry(control, data)
     control.data = data
 
     control.name = GetControl(control, "Name")
-		local isCurrentPlayer = (data.name == LeoAltholic.CharName)
-		local now = GetTimeStamp()
+    local isCurrentPlayer = (data.id == LeoAltholic.CharId)
+    local now = GetTimeStamp()
     control.name:SetText(data.name)
 
     local color
@@ -36,23 +35,22 @@ function LeoAltholicResearchList:SetupEntry(control, data)
         control.craft[craft] = GetControl(control, "Craft" .. craft)
 
         local researching = data.research.doing[craft] and #data.research.doing[craft] or 0
-        local missing = LeoAltholic.GetNumMissingTraitsFor(craft, data.name)
+        local missing = LeoAltholic.GetNumMissingTraitsFor(craft, data.id)
         local output
         color = '|c'..LeoAltholic.color.hex.green
 
         local first
         local list = {}
         for _, research in pairs(data.research.doing[craft]) do
-		
-			if isCurrentPlayer then
-				local _, remaining = GetSmithingResearchLineTraitTimes(craft, research.line, research.trait)
-				if remaining ~= nil then
-					research.doneAt = remaining + now
-				end
-			else
-				local remaining = GetDiffBetweenTimeStamps(research.doneAt, now)
-				research.doneAt = remaining + now
-			end
+            if isCurrentPlayer then
+                local _, remaining = GetSmithingResearchLineTraitTimes(craft, research.line, research.trait)
+                if remaining ~= nil then
+                    research.doneAt = remaining + now
+                end
+            else
+                local remaining = GetDiffBetweenTimeStamps(research.doneAt, now)
+                research.doneAt = remaining + now
+            end
 
             if research.doneAt ~= nil and research.doneAt - GetTimeStamp() < 0 then
                 researching = researching - 1
@@ -113,7 +111,7 @@ function LeoAltholicResearchList:ColorRow(control, data, mouseIsOver)
     local r, g, b = GetInterfaceColor(INTERFACE_COLOR_TYPE_ITEM_QUALITY_COLORS, ITEM_QUALITY_MAGIC)
 
     local child = GetControl(control, "Name")
-    if data.name == LeoAltholic.CharName then
+    if data.id == LeoAltholic.CharId then
         child:SetColor(r, g, b)
     else
         child:SetColor(color:UnpackRGBA())
@@ -125,6 +123,7 @@ function LeoAltholicResearchList:BuildMasterList()
     local list = LeoAltholic.ExportCharacters(true)
     for k, v in ipairs(list) do
         local data = {
+            id = v.bio.id,
             name = v.bio.name,
             research = v.research
         }

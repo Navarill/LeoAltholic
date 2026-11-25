@@ -1,4 +1,3 @@
-
 LeoAltholic.timerQueue = {}
 LeoAltholic.charList = {}
 LeoAltholic.lastUpdatedCharList = nil
@@ -16,24 +15,23 @@ local SOUL_MAGIC = 72
 function LeoAltholic.GetMaxRank(skillType, skillLine)
     if skillType == SKILL_TYPE_AVA or
         skillType == SKILL_TYPE_GUILD or
-		skillType == SKILL_TYPE_WORLD then
+        skillType == SKILL_TYPE_WORLD then
         local _, _, _, skillLineId = GetSkillLineInfo(skillType, skillLine)
         if skillLineId == THIEVES_GUILD then
             return 12
         end
         if skillLineId == DARK_BROTHERHOOD then
             return 12
-		end
+        end
         if skillLineId == LEGERDEMAIN then
             return 20
-		end
-		if skillLineId == SOUL_MAGIC then
-			return 6
-		end
-		return 10
-		end
-	return 50
-
+        end
+        if skillLineId == SOUL_MAGIC then
+            return 6
+        end
+        return 10
+    end
+    return 50
 end
 
 local function loadPlayerDataPart(skillType, baseElem)
@@ -47,7 +45,7 @@ local function loadPlayerDataPart(skillType, baseElem)
             name = i;
         end
         if discovered then
-            baseElem[i]    = {}
+            baseElem[i] = {}
             local baseElemTable = baseElem[i]
             local qty = GetNumSkillAbilities(skillType, i)
             baseElemTable.name = name
@@ -132,29 +130,31 @@ local function createQuestEntry(questId)
 end
 
 local function checkQuestForWrits(questName)
-    for i,trackedQuest in pairs(LeoAltholic.globalData.CharList[LeoAltholic.CharName].quests.writs) do
+    local myChar = LeoAltholic.globalData.CharList[LeoAltholic.CharId]
+    if not myChar then return end
+    for i,trackedQuest in pairs(myChar.quests.writs) do
         if (trackedQuest.name == questName) then
-            LeoAltholic.globalData.CharList[LeoAltholic.CharName].quests.writs[i].lastStarted = GetTimeStamp()
-            LeoAltholic.globalData.CharList[LeoAltholic.CharName].quests.writs[i].lastPreDeliver = nil
-            LeoAltholic.globalData.CharList[LeoAltholic.CharName].quests.writs[i].lastUpdated = nil
+            myChar.quests.writs[i].lastStarted = GetTimeStamp()
+            myChar.quests.writs[i].lastPreDeliver = nil
+            myChar.quests.writs[i].lastUpdated = nil
             LeoAltholicChecklistUI.startedWrit(trackedQuest.craft)
             local numConditions = GetJournalQuestNumConditions(trackedQuest.questIndex, QUEST_MAIN_STEP_INDEX)
             local hasUpdated = false
             for condition = 1, numConditions do
-                local current, max =  GetJournalQuestConditionValues(trackedQuest.questIndex, QUEST_MAIN_STEP_INDEX, condition)
+                local current, max = GetJournalQuestConditionValues(trackedQuest.questIndex, QUEST_MAIN_STEP_INDEX, condition)
                 if hasUpdated == false and current > 0 then
                     hasUpdated = true
                 end
                 local condText = GetJournalQuestConditionInfo(trackedQuest.questIndex, QUEST_MAIN_STEP_INDEX, condition)
                 if string.find(condText, GetString(LEOALT_DELIVER)) then
-                    LeoAltholic.globalData.CharList[LeoAltholic.CharName].quests.writs[i].lastPreDeliver = GetTimeStamp()
+                    myChar.quests.writs[i].lastPreDeliver = GetTimeStamp()
                     LeoAltholicChecklistUI.preDeliverWrit(trackedQuest.craft)
                     hasUpdated = false
                     break
                 end
             end
             if hasUpdated then
-                LeoAltholic.globalData.CharList[LeoAltholic.CharName].quests.writs[i].lastUpdated = GetTimeStamp()
+                myChar.quests.writs[i].lastUpdated = GetTimeStamp()
                 LeoAltholicChecklistUI.updateWrit(trackedQuest.craft)
             end
             LeoAltholicUI.writsList:RefreshData()
@@ -203,31 +203,29 @@ local function initAccountData()
 end
 
 local function initCharsData()
-
     if LeoAltholic.globalData.CharList == nil then LeoAltholic.globalData.CharList = {} end
 
     LeoAltholic.CharName = GetUnitName("player")
+    LeoAltholic.CharId = GetCurrentCharacterId()
 
     local function getStat(stat) return GetPlayerStat(stat, STAT_BONUS_OPTION_APPLY_BONUS) end
 
+    local validIds = {}
     local numChars = GetNumCharacters()
-    for k, v in pairs(LeoAltholic.globalData.CharList) do
-        local deleted = true
-        for i = 1, numChars do
-            local charName = GetCharacterInfo(i)
-            charName = charName:gsub("%^.+", "")
-            if k == charName then
-                deleted = false
-                break
-            end
+    for i = 1, numChars do
+        local _, _, _, _, _, _, id = GetCharacterInfo(i)
+        if id then
+            validIds[id] = true
         end
-        if deleted then
+    end
+    for k, _ in pairs(LeoAltholic.globalData.CharList) do
+        if not validIds[k] then
             LeoAltholic.globalData.CharList[k] = nil
         end
     end
 
     LeoAltholic.CharNum = 0
-    local char = LeoAltholic.globalData.CharList[LeoAltholic.CharName] or {
+    local char = LeoAltholic.globalData.CharList[LeoAltholic.CharId] or {
         bio = {},
         quests = {
             actives = {},
@@ -236,6 +234,7 @@ local function initCharsData()
         }
     }
 
+    char.bio.id = LeoAltholic.CharId
     char.bio.name = LeoAltholic.CharName
     char.bio.gender = GetUnitGender("player")
     if char.bio.gender == 1 then
@@ -268,7 +267,8 @@ local function initCharsData()
     if char.attributes and char.attributes.riding and char.attributes.riding.time and char.attributes.riding.time > 0 and
             GetDiffBetweenTimeStamps(char.attributes.riding.time, GetTimeStamp()) < 0 then
         local data = {
-            id = '$M' .. char.bio.name,
+            id = '$M' .. LeoAltholic.CharId,
+            charId = LeoAltholic.CharId,
             charName = char.bio.name,
             info = ZO_CachedStrFormat(GetString(LEOALT_MOUNT_FINISHED), char.bio.name),
             time = char.attributes.riding.time
@@ -316,78 +316,56 @@ local function initCharsData()
     char.attributes.total = char.attributes.unspent + char.attributes.health.points + char.attributes.magicka.points + char.attributes.stamina.points
 
     char.resistances = {
-        armor             = getStat(STAT_ARMOR_RATING),
-        spell      = getStat(STAT_SPELL_RESIST),
-        crit       = getStat(STAT_CRITICAL_RESISTANCE),
-        cold       = getStat(STAT_DAMAGE_RESIST_COLD),
-        disease    = getStat(STAT_DAMAGE_RESIST_DISEASE),
-        drown      = getStat(STAT_DAMAGE_RESIST_DROWN),
-        earth      = getStat(STAT_DAMAGE_RESIST_EARTH),
-        fire       = getStat(STAT_DAMAGE_RESIST_FIRE),
-        generic    = getStat(STAT_DAMAGE_RESIST_GENERIC),
-        magic      = getStat(STAT_DAMAGE_RESIST_MAGIC),
-        oblivion   = getStat(STAT_DAMAGE_RESIST_OBLIVION),
+        armor            = getStat(STAT_ARMOR_RATING),
+        spell            = getStat(STAT_SPELL_RESIST),
+        crit             = getStat(STAT_CRITICAL_RESISTANCE),
+        cold             = getStat(STAT_DAMAGE_RESIST_COLD),
+        disease          = getStat(STAT_DAMAGE_RESIST_DISEASE),
+        drown            = getStat(STAT_DAMAGE_RESIST_DROWN),
+        earth            = getStat(STAT_DAMAGE_RESIST_EARTH),
+        fire             = getStat(STAT_DAMAGE_RESIST_FIRE),
+        generic          = getStat(STAT_DAMAGE_RESIST_GENERIC),
+        magic            = getStat(STAT_DAMAGE_RESIST_MAGIC),
+        oblivion         = getStat(STAT_DAMAGE_RESIST_OBLIVION),
         resistPhysical   = getStat(STAT_DAMAGE_RESIST_PHYSICAL),
-        poison     = getStat(STAT_DAMAGE_RESIST_POISON),
-        shock      = getStat(STAT_DAMAGE_RESIST_SHOCK),
-        start      = getStat(STAT_DAMAGE_RESIST_START),
-        mitigation        = getStat(STAT_MITIGATION),
-        physical   = getStat(STAT_PHYSICAL_RESIST),
-        spell_mitigation  = getStat(STAT_SPELL_MITIGATION),
-        miss              = getStat(STAT_MISS),
-        block             = getStat(STAT_BLOCK),
-        dodge             = getStat(STAT_DODGE)
+        poison           = getStat(STAT_DAMAGE_RESIST_POISON),
+        shock            = getStat(STAT_DAMAGE_RESIST_SHOCK),
+        start            = getStat(STAT_DAMAGE_RESIST_START),
+        mitigation       = getStat(STAT_MITIGATION),
+        physical         = getStat(STAT_PHYSICAL_RESIST),
+        spell_mitigation = getStat(STAT_SPELL_MITIGATION),
+        miss             = getStat(STAT_MISS),
+        block            = getStat(STAT_BLOCK),
+        dodge            = getStat(STAT_DODGE)
     }
 
-    char.skills = { }
+    char.skills = {}
     char.skills.unspent = GetAvailableSkillPoints()
     char.skills.skyShards = GetNumSkyShards()
 
-    local skillType = SKILL_TYPE_ARMOR
     char.skills.armor = {}
-    local baseElem = char.skills.armor
-    loadPlayerDataPart(skillType,baseElem)
+    loadPlayerDataPart(SKILL_TYPE_ARMOR, char.skills.armor)
 
-    --
-    skillType = SKILL_TYPE_WORLD
     char.skills.world = {}
-    baseElem = char.skills.world
-    loadPlayerDataPart(skillType,baseElem)
+    loadPlayerDataPart(SKILL_TYPE_WORLD, char.skills.world)
 
-    --
-    skillType = SKILL_TYPE_CLASS
     char.skills.class = {}
-    baseElem = char.skills.class
-    loadPlayerDataPart(skillType,baseElem)
+    loadPlayerDataPart(SKILL_TYPE_CLASS, char.skills.class)
 
-    --
-    skillType = SKILL_TYPE_GUILD
     char.skills.guild = {}
-    baseElem = char.skills.guild
-    loadPlayerDataPart(skillType,baseElem)
+    loadPlayerDataPart(SKILL_TYPE_GUILD, char.skills.guild)
 
-    --
-    skillType = SKILL_TYPE_RACIAL
     char.skills.racial = {}
-    baseElem = char.skills.racial
-    loadPlayerDataPart(skillType,baseElem)
+    loadPlayerDataPart(SKILL_TYPE_RACIAL, char.skills.racial)
 
-    --
-    skillType = SKILL_TYPE_WEAPON
     char.skills.weapon = {}
-    baseElem = char.skills.weapon
-    loadPlayerDataPart(skillType,baseElem)
+    loadPlayerDataPart(SKILL_TYPE_WEAPON, char.skills.weapon)
 
-    --
-    skillType = SKILL_TYPE_AVA
     char.skills.ava = {}
-    baseElem = char.skills.ava
-    loadPlayerDataPart(skillType,baseElem)
+    loadPlayerDataPart(SKILL_TYPE_AVA, char.skills.ava)
 
-    skillType = SKILL_TYPE_TRADESKILL
     char.skills.craft = {}
-    baseElem = char.skills.craft
-    loadPlayerDataPart(skillType,baseElem)
+    loadPlayerDataPart(SKILL_TYPE_TRADESKILL, char.skills.craft)
 
     local function GetCraftBonus(craft)
         local skillType0, skillId = GetCraftingSkillLineIndices(craft)
@@ -419,7 +397,8 @@ local function initCharsData()
                             doneAt = remaining + GetTimeStamp()
                         })
                         local data = {
-                            id = '$R' .. char.bio.name..craft..line..trait,
+                            id = '$R' .. LeoAltholic.CharId .. craft .. line .. trait,
+                            charId = LeoAltholic.CharId,
                             charName = char.bio.name,
                             info = ZO_CachedStrFormat(
                                     GetString(LEOALT_RESEARCH_FINISHED) .. ': |c00FF00<<C:2>> <<C:3>>|r.',
@@ -494,119 +473,16 @@ local function initCharsData()
     if char.quests.writs == nil then char.quests.writs = {} end
     if char.quests.tracked == nil then char.quests.tracked = {} end
 
-    local n = 0
     char.quests.actives = {}
     for i = 1, MAX_JOURNAL_QUESTS do
         if IsValidQuestIndex(i) then
             local quest = createQuestEntry(i)
             table.insert(char.quests.actives, quest)
-            n = n + 1
-        end
-    end
-    --char.achievements = createCharDataAchievements()
-
-    LeoAltholic.globalData.CharList[LeoAltholic.CharName] = char
-end
-
---[[
-local function parseAchievementLinkId(link)
-
-    if (link == nil or link == "") then
-        return -1, 0, 0
-    end
-
-    local linkType, itemText, achId, achData, achTimestamp = link:match("|H(.-):(.-):(.-):(.-):(.-)|h|h")
-
-    if (achId == nil or achData == nil or achTimestamp == nil) then
-        return -1, 0, 0
-    end
-
-    return achId, tonumber(achData), tonumber(achTimestamp)
-end
-
-local function createCharDataAchievements()
-    local achievements = {}
-    local numTopLevelCategories = GetNumAchievementCategories()
-    local countCategory = 1
-
-    for topLevelIndex = 1, numTopLevelCategories do
-        local cateName, numCategories, numCateAchievements, earnedPoints, totalPoints, hidesPoints = GetAchievementCategoryInfo(topLevelIndex)
-
-        if earnedPoints > 0 then
-
-            achievements[countCategory] = {
-                id = topLevelIndex,
-                name = cateName,
-                earnedPoints = earnedPoints,
-                totalPoints = totalPoints,
-                subCategory = {}
-            }
-
-            local countSub = 1
-
-            for categoryIndex = 1, numCategories do
-                local subcategoryName, numAchievements, earnedSubSubPoints, totalSubSubPoints, hidesSubSubPoints = GetAchievementSubCategoryInfo(topLevelIndex, categoryIndex)
-
-                if earnedSubSubPoints > 0 then
-                    achievements[countCategory].subCategory[countSub] = {
-                        name = subcategoryName,
-                        earnedPoints = earnedSubSubPoints,
-                        totalPoints = totalSubSubPoints,
-                        achievements = {}
-                    }
-                    earnedPoints = earnedPoints - earnedSubSubPoints
-                    totalPoints = totalPoints - totalSubSubPoints
-
-                    local countAchiev = 1
-
-                    for achievementIndex = 1, numAchievements do
-                        local achId = GetAchievementId(topLevelIndex, categoryIndex, achievementIndex)
-                        local currentId = GetFirstAchievementInLine(achId)
-
-                        if (currentId == 0) then currentId = achId end
-
-                        while (currentId ~= nil and currentId > 0) do
-                            local achLink = GetAchievementLink(currentId)
-                            local _, progress, timestamp = parseAchievementLinkId(achLink)
-
-                            if (progress ~= 0 or timestamp ~= 0) then
-                                achievements[countCategory].subCategory[countSub].achievements[countAchiev] = {
-                                    id = currentId,
-                                    name = GetAchievementNameFromLink(achLink),
-                                    progress = progress,
-                                    timestamp = timestamp,
-                                    completed = IsAchievementComplete(currentId),
-                                    numCriteria =  GetAchievementNumCriteria(currentId),
-                                    numCriteriaDone = 0
-                                }
-                                local numCriteria = achievements[countCategory].subCategory[countSub].achievements[countAchiev].numCriteria
-                                local numCriteriaDone = achievements[countCategory].subCategory[countSub].achievements[countAchiev].numCriteriaDone
-                                for critIndex = 1, numCriteria do
-                                    local _, numCompleted, numRequired = GetAchievementCriterion(currentId, critIndex)
-                                    if numCompleted == numRequired then
-                                        numCriteriaDone = numCriteriaDone + 1
-                                    end
-                                end
-                                achievements[countCategory].subCategory[countSub].achievements[countAchiev].numCriteriaDone = numCriteriaDone
-                                countAchiev = countAchiev + 1
-                            end
-
-                            currentId = GetNextAchievementInLine(currentId)
-                        end
-                    end
-                    countSub = countSub + 1
-                end
-            end
-            countCategory = countCategory + 1
         end
     end
 
-    achievements.earnedPoints = GetEarnedAchievementPoints()
-    achievements.totalPoints = GetTotalAchievementPoints()
-
-    return achievements
+    LeoAltholic.globalData.CharList[LeoAltholic.CharId] = char
 end
-]]
 
 local function copy(obj, seen)
     if type(obj) ~= 'table' then return obj end
@@ -620,11 +496,11 @@ end
 
 function LeoAltholic.GetCharacters(forceUpdate)
     if #LeoAltholic.charList == 0 or forceUpdate == true or GetTimeStamp() - LeoAltholic.lastUpdatedCharList > 10 then
-
-        LeoAltholic.charList =  {}
+        LeoAltholic.charList = {}
         local i = 1
         for k, v in pairs(LeoAltholic.globalData.CharList) do
             if k == nil then return end
+            v.bio.id = v.bio.id or k
             LeoAltholic.charList[i] = copy(v)
             i = i + 1
         end
@@ -637,7 +513,7 @@ function LeoAltholic.GetCharacters(forceUpdate)
 end
 
 function LeoAltholic.GetItems(char, bagId)
-    local itemLines =  {}
+    local itemLines = {}
     local i = 1
     local list
     if char ~= nil and bagId >= 0 then
@@ -671,7 +547,7 @@ end
 local function onResearchStarted(eventCode, craft, line, trait)
     local _,remaining = GetSmithingResearchLineTraitTimes(craft,line,trait)
     if not remaining then return end
-    table.insert(LeoAltholic.globalData.CharList[LeoAltholic.CharName].research.doing[craft], {
+    table.insert(LeoAltholic.globalData.CharList[LeoAltholic.CharId].research.doing[craft], {
         craft = craft,
         line = line,
         trait = trait,
@@ -684,9 +560,9 @@ local function onResearchStarted(eventCode, craft, line, trait)
 end
 
 local function onResearchCanceled(eventCode, craft, line, trait)
-    for i, research in pairs(LeoAltholic.globalData.CharList[LeoAltholic.CharName].research.doing[craft]) do
+    for i, research in pairs(LeoAltholic.globalData.CharList[LeoAltholic.CharId].research.doing[craft]) do
         if research.line == line and research.trait == trait then
-            table.remove(LeoAltholic.globalData.CharList[LeoAltholic.CharName].research.doing[craft], i)
+            table.remove(LeoAltholic.globalData.CharList[LeoAltholic.CharId].research.doing[craft], i)
             if LeoAltholic.IsTabVisible(LeoAltholic.TAB_RESEARCH) then
                 LeoAltholicUI.researchList:RefreshData()
             end
@@ -696,10 +572,10 @@ local function onResearchCanceled(eventCode, craft, line, trait)
 end
 
 local function onResearchCompleted(eventCode, craft, line, trait)
-    LeoAltholic.globalData.CharList[LeoAltholic.CharName].research.done[craft][line][trait] = true
-    for i, research in pairs(LeoAltholic.globalData.CharList[LeoAltholic.CharName].research.doing[craft]) do
+    LeoAltholic.globalData.CharList[LeoAltholic.CharId].research.done[craft][line][trait] = true
+    for i, research in pairs(LeoAltholic.globalData.CharList[LeoAltholic.CharId].research.doing[craft]) do
         if research.line == line and research.trait == trait then
-            table.remove(LeoAltholic.globalData.CharList[LeoAltholic.CharName].research.doing[craft], i)
+            table.remove(LeoAltholic.globalData.CharList[LeoAltholic.CharId].research.doing[craft], i)
             break
         end
     end
@@ -736,38 +612,33 @@ function LeoAltholic.AddToQueue(data)
     table.insert(LeoAltholic.timerQueue, data)
 end
 
-local function charStillExists(charName)
-    for _, char in pairs(LeoAltholic.GetCharacters()) do
-        if char.bio.name == charName then
-            return true
-        end
-    end
-    return false
+local function charStillExists(charId)
+    return LeoAltholic.globalData.CharList[charId] ~= nil
 end
 
 local function processQueue()
     for i, data in pairs(LeoAltholic.timerQueue) do
-        if charStillExists(data.charName) and not data.announced and GetDiffBetweenTimeStamps(data.time, GetTimeStamp()) <= 0 then
-            if data.charName ~= LeoAltholic.CharName and LeoAltholic.globalData.settings.completedResearch.chat == true then
+        if charStillExists(data.charId) and not data.announced and GetDiffBetweenTimeStamps(data.time, GetTimeStamp()) <= 0 then
+            if data.charId ~= LeoAltholic.CharId and LeoAltholic.globalData.settings.completedResearch.chat == true then
                 LeoAltholic.log(data.info)
             end
-            if data.charName == LeoAltholic.CharName and LeoAltholic.globalData.settings.completedResearch.screen == true then
+            if data.charId == LeoAltholic.CharId and LeoAltholic.globalData.settings.completedResearch.screen == true then
                 local messageParams = CENTER_SCREEN_ANNOUNCE:CreateMessageParams(CSA_CATEGORY_SMALL_TEXT, SOUNDS.SMITHING_FINISH_RESEARCH)
                 messageParams:SetText(formatMessage(data.info))
                 CENTER_SCREEN_ANNOUNCE:AddMessageWithParams(messageParams)
             end
             LeoAltholic.timerQueue[i].announced = true
-            --table.remove(LeoAltholic.timerQueue, x)
         end
     end
 end
 
 local function createMessageQueue()
     for _, char in pairs(LeoAltholic.GetCharacters()) do
-        if char.bio.name ~= LeoAltholic.CharName then
+        if char.bio.id ~= LeoAltholic.CharId then
             if char.attributes.riding.time and char.attributes.riding.time > 0 and GetDiffBetweenTimeStamps(char.attributes.riding.time, GetTimeStamp()) < 0 then
                 local data = {
-                    id = '$M' .. char.bio.name,
+                    id = '$M' .. char.bio.id,
+                    charId = char.bio.id,
                     charName = char.bio.name,
                     info = ZO_CachedStrFormat(GetString(LEOALT_MOUNT_FINISHED), char.bio.name),
                     time = char.attributes.riding.time
@@ -781,7 +652,8 @@ local function createMessageQueue()
                         local traitType = GetSmithingResearchLineTraitInfo(research.craft, research.line, research.trait)
                         if research.doneAt ~= nil then
                             local data = {
-                                id = '$R' .. char.bio.name..research.craft..research.line..research.trait,
+                                id = '$R' .. char.bio.id .. research.craft .. research.line .. research.trait,
+                                charId = char.bio.id,
                                 charName = char.bio.name,
                                 info = ZO_CachedStrFormat(
                                         GetString(LEOALT_RESEARCH_FINISHED) .. ': |c00FF00<<C:2>> <<C:3>>|r.',
@@ -800,34 +672,15 @@ local function createMessageQueue()
     end
 end
 
---[[ Preparing for hirering timers
-local function onMailRedable()
-    for mailId in ZO_GetNextMailIdIter do
-        senderDisplayName, senderCharacterName, subject, icon, unread, fromSystem, fromCustomerService, returned, numAttachments, attachedMoney, codAmount, expiresInDays, secsSinceReceived = GetMailItemInfo(mailId)
-
-        if(subject == GetString(LEOALT_MAIL_BLACKSMITH) and fromSystem) then
-            d(GetTimeStamp() - secsSinceReceived)
-        elseif(subject == GetString(LEOALT_MAIL_CLOTHIER) and fromSystem) then
-            d(GetTimeStamp() - secsSinceReceived)
-        elseif(subject == GetString(LEOALT_MAIL_WOODWORKER) and fromSystem) then
-            d(GetTimeStamp() - secsSinceReceived)
-        elseif(subject == GetString(LEOALT_MAIL_ENCHANTER) and fromSystem) then
-            d(GetTimeStamp() - secsSinceReceived)
-        elseif(subject == GetString(LEOALT_MAIL_PROVISIONER) and fromSystem) then
-            d(GetTimeStamp() - secsSinceReceived)
-        end
-    end
-end
-]]
-
 local function updateMyself()
-    LeoAltholic.globalData.CharList[LeoAltholic.CharName].inventory.size = GetBagSize(BAG_BACKPACK)
-    LeoAltholic.globalData.CharList[LeoAltholic.CharName].inventory.used = GetNumBagUsedSlots(BAG_BACKPACK)
-    LeoAltholic.globalData.CharList[LeoAltholic.CharName].inventory.free = GetNumBagFreeSlots(BAG_BACKPACK)
+    local myChar = LeoAltholic.globalData.CharList[LeoAltholic.CharId]
+    if not myChar then return end
+    myChar.inventory.size = GetBagSize(BAG_BACKPACK)
+    myChar.inventory.used = GetNumBagUsedSlots(BAG_BACKPACK)
+    myChar.inventory.free = GetNumBagFreeSlots(BAG_BACKPACK)
 end
 
 local function onUpdate()
-
     processQueue()
 
     updateMyself()
@@ -854,26 +707,6 @@ local function onUpdate()
     if LeoAltholic.IsTabVisible(LeoAltholic.TAB_INVENTORY) then
         LeoAltholicUI.UpdateInventory()
     end
-
-    --[[
-    if LeoAltholic.numUpdates >= 30 then -- 60 seconds
-        LeoAltholic.numUpdates = 1
-        LeoAltholicChecklistUI.update()
-        For reference only!!
-        LeoAltholicUI.bioList:RefreshData()
-        LeoAltholicUI.statsList:RefreshData()
-        LeoAltholicUI.championList:RefreshData()
-        LeoAltholicUI.invList:RefreshData()
-        LeoAltholicUI.skillsList:RefreshData()
-        LeoAltholicUI.skills2List:RefreshData()
-        LeoAltholicUI.researchList:RefreshData()
-        LeoAltholicUI.writsList:RefreshData()
-    else
-        if LeoAltholic.IsTabVisible(LeoAltholic.TAB_RESEARCH) then
-            LeoAltholicUI:updateResearch()
-        end
-    end
-    ]]
 end
 
 local function trackQuest(questId, automatically)
@@ -884,19 +717,20 @@ local function trackQuest(questId, automatically)
         end
         return
     end
+    local myChar = LeoAltholic.globalData.CharList[LeoAltholic.CharId]
     local lookInto
     local quest = createQuestEntry(questId)
     if quest.isCrafting then
-        lookInto = LeoAltholic.globalData.CharList[LeoAltholic.CharName].quests.writs
+        lookInto = myChar.quests.writs
     else
-        lookInto = LeoAltholic.globalData.CharList[LeoAltholic.CharName].quests.tracked
+        lookInto = myChar.quests.tracked
     end
     for trackedIndex,trackedQuest in pairs(lookInto) do
         if (trackedQuest.name == quest.name) then
             if quest.isCrafting then
-                LeoAltholic.globalData.CharList[LeoAltholic.CharName].quests.writs[trackedIndex].questIndex = questId
+                myChar.quests.writs[trackedIndex].questIndex = questId
             else
-                LeoAltholic.globalData.CharList[LeoAltholic.CharName].quests.tracked[trackedIndex].questIndex = questId
+                myChar.quests.tracked[trackedIndex].questIndex = questId
             end
             if automatically ~= true then
                 LeoAltholic.log(ZO_CachedStrFormat(GetString(LEOALT_QUEST_ALREADY_TRACKED), quest.name))
@@ -906,9 +740,9 @@ local function trackQuest(questId, automatically)
     end
     quest.lastDone = nil
     if quest.isCrafting then
-        table.insert(LeoAltholic.globalData.CharList[LeoAltholic.CharName].quests.writs, quest)
+        table.insert(myChar.quests.writs, quest)
     else
-        table.insert(LeoAltholic.globalData.CharList[LeoAltholic.CharName].quests.tracked, quest)
+        table.insert(myChar.quests.tracked, quest)
     end
     LeoAltholic.log(GetString(LEOALT_TRACKING) .. " " .. quest.name .. "...")
     if quest.isCrafting then
@@ -932,17 +766,19 @@ local function onQuestAdded(eventCode, journalQuestIndex, questName, objectiveNa
 end
 
 local function onQuestCounterChanged(eventCode, journalQuestIndex, questName, conditionText, conditionType, currConditionVal, newConditionVal, conditionMax, isFailCondition, stepOverrideText, isPushed, isComplete, isConditionComplete, isStepHidden)
-    for i,trackedQuest in pairs(LeoAltholic.globalData.CharList[LeoAltholic.CharName].quests.writs) do
+    local myChar = LeoAltholic.globalData.CharList[LeoAltholic.CharId]
+    if not myChar then return end
+    for i,trackedQuest in pairs(myChar.quests.writs) do
         if (trackedQuest.name == questName) then
-            LeoAltholic.globalData.CharList[LeoAltholic.CharName].quests.writs[i].lastUpdated = GetTimeStamp()
+            myChar.quests.writs[i].lastUpdated = GetTimeStamp()
             LeoAltholicChecklistUI.updateWrit(trackedQuest.craft)
 
             local numConditions = GetJournalQuestNumConditions(journalQuestIndex, QUEST_MAIN_STEP_INDEX)
             for condition = 1, numConditions do
-                local cur, max =  GetJournalQuestConditionValues(journalQuestIndex, QUEST_MAIN_STEP_INDEX, condition)
+                local cur, max = GetJournalQuestConditionValues(journalQuestIndex, QUEST_MAIN_STEP_INDEX, condition)
                 local condText = GetJournalQuestConditionInfo(journalQuestIndex, QUEST_MAIN_STEP_INDEX, condition)
                 if string.find(condText, GetString(LEOALT_DELIVER)) then
-                    LeoAltholic.globalData.CharList[LeoAltholic.CharName].quests.writs[i].lastPreDeliver = GetTimeStamp()
+                    myChar.quests.writs[i].lastPreDeliver = GetTimeStamp()
                     LeoAltholicChecklistUI.preDeliverWrit(trackedQuest.craft)
                     break
                 end
@@ -956,11 +792,13 @@ end
 
 local function onQuestRemoved(eventCode, isCompleted, journalQuestIndex, questName, zoneIndex, poiIndex)
     if not isCompleted then
-        for i,trackedQuest in pairs(LeoAltholic.globalData.CharList[LeoAltholic.CharName].quests.writs) do
+        local myChar = LeoAltholic.globalData.CharList[LeoAltholic.CharId]
+        if not myChar then return end
+        for i,trackedQuest in pairs(myChar.quests.writs) do
             if (trackedQuest.name == questName) then
-                LeoAltholic.globalData.CharList[LeoAltholic.CharName].quests.writs[i].lastStarted = nil
-                LeoAltholic.globalData.CharList[LeoAltholic.CharName].quests.writs[i].lastPreDeliver = nil
-                LeoAltholic.globalData.CharList[LeoAltholic.CharName].quests.writs[i].lastUpdated = nil
+                myChar.quests.writs[i].lastStarted = nil
+                myChar.quests.writs[i].lastPreDeliver = nil
+                myChar.quests.writs[i].lastUpdated = nil
                 LeoAltholicChecklistUI.stoppedWrit(trackedQuest.craft)
                 LeoAltholicUI.writsList:RefreshData()
                 return
@@ -970,18 +808,20 @@ local function onQuestRemoved(eventCode, isCompleted, journalQuestIndex, questNa
 end
 
 local function onQuestComplete(eventCode, questName, level, previousExperience, currentExperience, rank, previousPoints, currentPoints)
-    for i,trackedQuest in pairs(LeoAltholic.globalData.CharList[LeoAltholic.CharName].quests.writs) do
+    local myChar = LeoAltholic.globalData.CharList[LeoAltholic.CharId]
+    if not myChar then return end
+    for i,trackedQuest in pairs(myChar.quests.writs) do
         if (trackedQuest.name == questName) then
-            LeoAltholic.globalData.CharList[LeoAltholic.CharName].quests.writs[i].lastDone = GetTimeStamp()
+            myChar.quests.writs[i].lastDone = GetTimeStamp()
             LeoAltholic.log(ZO_CachedStrFormat(GetString(LEOALT_QUEST_DONE_TODAY), questName))
             LeoAltholicUI.writsList:RefreshData()
             LeoAltholicChecklistUI.doneWrit(trackedQuest.craft)
             return
         end
     end
-    for i,trackedQuest in pairs(LeoAltholic.globalData.CharList[LeoAltholic.CharName].quests.tracked) do
+    for i,trackedQuest in pairs(myChar.quests.tracked) do
         if (trackedQuest.name == questName) then
-            LeoAltholic.globalData.CharList[LeoAltholic.CharName].quests.tracked[i].lastDone = GetTimeStamp()
+            myChar.quests.tracked[i].lastDone = GetTimeStamp()
             LeoAltholic.log(ZO_CachedStrFormat(GetString(LEOALT_QUEST_DONE_TODAY), questName))
             return
         end
@@ -989,7 +829,6 @@ local function onQuestComplete(eventCode, questName, level, previousExperience, 
 end
 
 local function addToBank(bagId, slotIndex, itemLink, name, stackCount)
-
     if name == nil then name = GetItemName(bagId, slotIndex) end
 
     table.insert(LeoAltholic.globalData.AccountData.inventory[bagId].list, {
@@ -1083,22 +922,22 @@ local function migrateDataToV2()
         enabled = false
     }
     if LeoAltholic.globalData.CharList == nil then return end -- fresh install?
-    for charName, char in pairs(LeoAltholic.globalData.CharList) do
+    for charKey, char in pairs(LeoAltholic.globalData.CharList) do
         local oldResearch = char.research
-        LeoAltholic.globalData.CharList[charName].research = {}
-        LeoAltholic.globalData.CharList[charName].research.done = {}
-        LeoAltholic.globalData.CharList[charName].research.doing = {}
+        LeoAltholic.globalData.CharList[charKey].research = {}
+        LeoAltholic.globalData.CharList[charKey].research.done = {}
+        LeoAltholic.globalData.CharList[charKey].research.doing = {}
         for _,craft in pairs(LeoAltholic.craftResearch) do
-            LeoAltholic.globalData.CharList[charName].research.done[craft] = {
+            LeoAltholic.globalData.CharList[charKey].research.done[craft] = {
                 max = oldResearch[craft].max or 0
             }
-            LeoAltholic.globalData.CharList[charName].research.doing[craft] = {}
+            LeoAltholic.globalData.CharList[charKey].research.doing[craft] = {}
             for line = 1, GetNumSmithingResearchLines(craft) do
-                LeoAltholic.globalData.CharList[charName].research.done[craft][line] = {}
+                LeoAltholic.globalData.CharList[charKey].research.done[craft][line] = {}
                 local lineName, _, numTraits = GetSmithingResearchLineInfo(craft, line)
                 for trait = 1, numTraits do
                     if oldResearch[craft][line][trait] == true then
-                        LeoAltholic.globalData.CharList[charName].research.done[craft][line][trait] = true
+                        LeoAltholic.globalData.CharList[charKey].research.done[craft][line][trait] = true
                     end
                 end
             end
@@ -1108,10 +947,10 @@ end
 
 local function migrateDataToV3()
     if LeoAltholic.globalData.CharList == nil then return end -- fresh install?
-    for charName, char in pairs(LeoAltholic.globalData.CharList) do
+    for charKey, char in pairs(LeoAltholic.globalData.CharList) do
         for i = 1, GetNumChampionDisciplines() do
-            if LeoAltholic.globalData.CharList[charName].champion[i].disciplines or not LeoAltholic.globalData.CharList[charName].champion[i].spent then
-                LeoAltholic.globalData.CharList[charName].champion[i] = {
+            if LeoAltholic.globalData.CharList[charKey].champion[i].disciplines or not LeoAltholic.globalData.CharList[charKey].champion[i].spent then
+                LeoAltholic.globalData.CharList[charKey].champion[i] = {
                     spent = 0,
                     unspent = 0,
                     skills = {}
@@ -1119,6 +958,35 @@ local function migrateDataToV3()
             end
         end
     end
+end
+
+local function migrateDataToV4()
+    if LeoAltholic.globalData.CharList == nil then return end
+    local nameToId = {}
+    local validIds = {}
+    for i = 1, GetNumCharacters() do
+        local charName, _, _, _, _, _, charId = GetCharacterInfo(i)
+        if charName and charId then
+            charName = charName:gsub("%^.+", "")
+            nameToId[charName] = charId
+            validIds[charId] = true
+        end
+    end
+
+    local newCharList = {}
+    for k, v in pairs(LeoAltholic.globalData.CharList) do
+        if validIds[k] then
+            v.bio = v.bio or {}
+            v.bio.id = k
+            newCharList[k] = v
+        elseif nameToId[k] then
+            local charId = nameToId[k]
+            v.bio = v.bio or {}
+            v.bio.id = charId
+            newCharList[charId] = v
+        end
+    end
+    LeoAltholic.globalData.CharList = newCharList
 end
 
 local function initializeVars()
@@ -1179,6 +1047,10 @@ local function initializeVars()
         migrateDataToV3()
         LeoAltholic.globalData.dataVersion = 3
     end
+    if LeoAltholic.globalData.dataVersion < 4 then
+        migrateDataToV4()
+        LeoAltholic.globalData.dataVersion = 4
+    end
     if LeoAltholic.globalData.settings.inventory == nil then
         LeoAltholic.globalData.settings.inventory = {
             enabled = true
@@ -1198,55 +1070,12 @@ local function onGameMenuExit()
 end
 
 local function initialize()
-
     LeoAltholic.RestorePosition()
     LeoAltholicToolbarUI.RestorePosition()
     LeoAltholicChecklistUI.RestorePosition()
 
     LeoAltholicUI.InitPanels()
     createMessageQueue()
-
-    --[[
-    local keybindStripDescriptor = {
-        alignment = KEYBIND_STRIP_ALIGN_LEFT,
-        {
-            name = "Track with " .. LeoAltholic.displayName,
-            keybind = "LEOALTHOLIC_TRACK_QUEST",
-            enabled = function() return true end,
-            visible = function()
-                if not LeoAltholic.questSceneOpened then return false end
-                local questIndex = QUEST_JOURNAL_MANAGER:GetFocusedQuestIndex()
-                return GetJournalQuestRepeatType(questIndex) == QUEST_REPEAT_DAILY
-            end,
-            order = 100,
-            callback = function()
-                trackQuest(QUEST_JOURNAL_MANAGER:GetFocusedQuestIndex())
-            end,
-        }
-    }
-
-    QUEST_JOURNAL_SCENE:RegisterCallback("StateChange",
-            function(oldState, newState)
-                KEYBIND_STRIP:RemoveKeybindButtonGroup(keybindStripDescriptor)
-                if newState == SCENE_SHOWING then
-                    LeoAltholic.questSceneOpened = true
-                elseif(newState == SCENE_SHOWN) then
-                    KEYBIND_STRIP:AddKeybindButtonGroup(keybindStripDescriptor)
-                else
-                    LeoAltholic.questSceneOpened = false
-                end
-            end)
-
-    QUEST_JOURNAL_KEYBOARD:RegisterCallback("QuestSelected",
-            function(questId)
-                local type = GetJournalQuestRepeatType(questId)
-                if type == QUEST_REPEAT_DAILY then
-                    KEYBIND_STRIP:AddKeybindButtonGroup(keybindStripDescriptor)
-                else
-                    KEYBIND_STRIP:RemoveKeybindButtonGroup(keybindStripDescriptor)
-                end
-            end)
-    ]]
 
     LeoAltholic.settings = LeoAltholic_Settings:New()
     LeoAltholic.settings:CreatePanel()
@@ -1292,7 +1121,7 @@ local function onRidingSkillImprovement(eventCode, ridingSkill, previous, curren
     local ridetime = GetTimeUntilCanBeTrained()/1000 or 0
     if ridetime > 1 then ridetime = ridetime + GetTimeStamp() end
 
-    LeoAltholic.globalData.CharList[LeoAltholic.CharName].attributes.riding = {
+    LeoAltholic.globalData.CharList[LeoAltholic.CharId].attributes.riding = {
         capacity = riding[1],
         capacityMax = riding[2],
         stamina = riding[3],
@@ -1306,17 +1135,18 @@ local function onRidingSkillImprovement(eventCode, ridingSkill, previous, curren
 end
 
 local function onChampionPointsChanged()
-    LeoAltholic.globalData.CharList[LeoAltholic.CharName].champion = {}
+    local myChar = LeoAltholic.globalData.CharList[LeoAltholic.CharId]
+    myChar.champion = {}
     for disciplineIndex = 1, GetNumChampionDisciplines() do
         local disciplineId = GetChampionDisciplineId(disciplineIndex)
-        LeoAltholic.globalData.CharList[LeoAltholic.CharName].champion[disciplineIndex] = {
+        myChar.champion[disciplineIndex] = {
             spent = GetNumSpentChampionPoints(disciplineId),
             unspent = GetNumUnspentChampionPoints(disciplineId),
             skills = {}
         }
         for skill = 1, GetNumChampionDisciplineSkills(disciplineIndex) do
             local id = GetChampionSkillId(disciplineIndex, skill)
-            LeoAltholic.globalData.CharList[LeoAltholic.CharName].champion[disciplineIndex].skills[skill] = GetNumPointsSpentOnChampionSkill(id)
+            myChar.champion[disciplineIndex].skills[skill] = GetNumPointsSpentOnChampionSkill(id)
         end
     end
     LeoAltholicUI.championList:RefreshData()
@@ -1361,8 +1191,6 @@ local function onAddOnLoaded(event, addonName)
     EVENT_MANAGER:RegisterForEvent(LeoAltholic.name, EVENT_OPEN_BANK, onOpenBank)
     EVENT_MANAGER:RegisterForEvent(LeoAltholic.name, EVENT_CLOSE_BANK, onCloseBank)
 
-    --EVENT_MANAGER:RegisterForEvent(LeoAltholic.name, EVENT_MAIL_READABLE, onMailRedable)
-    --EVENT_MANAGER:RegisterForEvent(LeoAltholic.name, EVENT_SKILL_POINTS_CHANGED, onUpdateSkills)
     EVENT_MANAGER:RegisterForUpdate(LeoAltholic.name, 2000, onUpdate)
     EVENT_MANAGER:RegisterForEvent(LeoAltholic.name, EVENT_NEW_MOVEMENT_IN_UI_MODE, onNewMovementInUIMode)
     EVENT_MANAGER:RegisterForEvent(LeoAltholic.name, EVENT_RIDING_SKILL_IMPROVEMENT, onRidingSkillImprovement)

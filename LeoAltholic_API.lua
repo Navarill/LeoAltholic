@@ -1,8 +1,23 @@
-
 local function get(tbl, k, ...)
     if tbl == nil or tbl[k] == nil then return nil end
     if select('#', ...) == 0 then return tbl[k] end
     return get(tbl[k], ...)
+end
+
+local function resolveChar(charKey)
+    if not charKey then
+        return LeoAltholic.globalData.CharList[LeoAltholic.CharId], LeoAltholic.CharId
+    end
+    local char = LeoAltholic.globalData.CharList[charKey]
+    if char then
+        return char, charKey
+    end
+    for id, c in pairs(LeoAltholic.globalData.CharList) do
+        if c.bio and c.bio.name == charKey then
+            return c, id
+        end
+    end
+    return nil, charKey
 end
 
 --[[
@@ -93,24 +108,21 @@ function LeoAltholic.TimeAgo(timestamp)
 end
 
 --[[
-Return if the craft is done for the day for the charName (if not specified, the current character is used)
+Return if the craft is done for the day for the charId (if not specified, the current character is used)
 ]]
-function LeoAltholic.IsWritDoneToday(craft, charName)
-    if not charName then charName = LeoAltholic.CharName end
-    local char = LeoAltholic.globalData.CharList[charName]
+function LeoAltholic.IsWritDoneToday(craft, charId)
+    local char = resolveChar(charId)
     if not char then return end
     for _, writ in pairs(char.quests.writs) do
         if craft == writ.craft then
---            return writ.lastDone ~= nil and LeoAltholic.IsAfterReset(writ.lastDone)    --original code, Teva added 2 conditions as shown on the next line
             return writ.lastDone ~= nil and writ.lastStarted ~= nil and LeoAltholic.IsAfterReset(writ.lastDone) and writ.lastDone > writ.lastStarted and LeoAltholic.IsAfterReset(writ.lastStarted)
         end
     end
     return false
 end
 
-function LeoAltholic.IsWritStartedToday(craft, charName)
-    if not charName then charName = LeoAltholic.CharName end
-    local char = LeoAltholic.globalData.CharList[charName]
+function LeoAltholic.IsWritStartedToday(craft, charId)
+    local char = resolveChar(charId)
     if not char then return end
     for _, writ in pairs(char.quests.writs) do
         if craft == writ.craft then
@@ -120,9 +132,8 @@ function LeoAltholic.IsWritStartedToday(craft, charName)
     return false
 end
 
-function LeoAltholic.HasStillResearchFor(craft, charName)
-    if not charName then charName = LeoAltholic.CharName end
-    local char = LeoAltholic.globalData.CharList[charName]
+function LeoAltholic.HasStillResearchFor(craft, charId)
+    local char = resolveChar(charId)
     if not char then return end
     for line = 1, GetNumSmithingResearchLines(craft) do
         local _, _, numTraits = GetSmithingResearchLineInfo(craft, line)
@@ -134,15 +145,14 @@ function LeoAltholic.HasStillResearchFor(craft, charName)
     end
 end
 
-function LeoAltholic.GetNumMissingTraitsFor(craft, charName)
-    if not charName then charName = LeoAltholic.CharName end
-    local char = LeoAltholic.globalData.CharList[charName]
+function LeoAltholic.GetNumMissingTraitsFor(craft, charId)
+    local char, resolvedId = resolveChar(charId)
     if not char then return end
     local missing = 0
     for line = 1, GetNumSmithingResearchLines(craft) do
         local _, _, numTraits = GetSmithingResearchLineInfo(craft, line)
         for trait = 1, numTraits do
-            if not LeoAltholic.CharKnowsTrait(craft, line, trait, charName) then
+            if not LeoAltholic.CharKnowsTrait(craft, line, trait, resolvedId) then
                 missing = missing + 1
             end
         end
@@ -150,20 +160,18 @@ function LeoAltholic.GetNumMissingTraitsFor(craft, charName)
     return missing
 end
 
-function LeoAltholic.CharKnowsTrait(craftSkill, line, trait, charName)
-    if not charName then charName = LeoAltholic.CharName end
-    local char = LeoAltholic.globalData.CharList[charName]
+function LeoAltholic.CharKnowsTrait(craftSkill, line, trait, charId)
+    local char = resolveChar(charId)
     if not char then return end
     if not char.research.done then return false end
     return get(char.research.done, craftSkill, line, trait) == true
 end
 
-function LeoAltholic.ResearchStatus(craftSkill, line, trait, charName)
-    if not charName then charName = LeoAltholic.CharName end
-    local char = LeoAltholic.globalData.CharList[charName]
+function LeoAltholic.ResearchStatus(craftSkill, line, trait, charId)
+    local char, resolvedId = resolveChar(charId)
     if not char then return false, false end
 
-    local isKnown = LeoAltholic.CharKnowsTrait(craftSkill, line, trait, charName)
+    local isKnown = LeoAltholic.CharKnowsTrait(craftSkill, line, trait, resolvedId)
     local isResearching = false
 
     if char.research and char.research.doing and char.research.doing[craftSkill] then
@@ -178,7 +186,8 @@ function LeoAltholic.ResearchStatus(craftSkill, line, trait, charName)
     return isKnown, isResearching
 end
 
-function LeoAltholic.GetNumTraitKnownPerLine(charName)
+function LeoAltholic.GetNumTraitKnownPerLine(charId)
+    local _, resolvedId = resolveChar(charId)
     local levels = {}
     for _,craft in pairs(LeoAltholic.craftResearch) do
         levels[craft] = {}
@@ -186,7 +195,7 @@ function LeoAltholic.GetNumTraitKnownPerLine(charName)
             levels[craft][line] = 0
             local _, _, numTraits = GetSmithingResearchLineInfo(craft, line)
             for trait = 1, numTraits do
-                if LeoAltholic.CharKnowsTrait(craft, line, trait, charName) then
+                if LeoAltholic.CharKnowsTrait(craft, line, trait, resolvedId) then
                     levels[craft][line] = levels[craft][line] + 1
                 end
             end
@@ -199,14 +208,13 @@ end
 Return the number of researches in progress, the total and the time of the first one to be completed (can be 0 or negative,
   indicating it's done)
 ]]
-function LeoAltholic.GetResearchCounters(craft, charName)
-    if not charName then charName = LeoAltholic.CharName end
-    local char = LeoAltholic.globalData.CharList[charName]
+function LeoAltholic.GetResearchCounters(craft, charId)
+    local char, resolvedId = resolveChar(charId)
     if not char then return end
     local lowest = -1
     if #char.research.doing[craft] > 0 then
         local research = char.research.doing[craft][1]
-        if charName == LeoAltholic.CharName then
+        if resolvedId == LeoAltholic.CharId then
             local _, remaining = GetSmithingResearchLineTraitTimes(craft, research.line, research.trait)
             if remaining ~= nil then
                 research.doneAt = remaining + GetTimeStamp()
@@ -223,17 +231,10 @@ end
 
 local function copy(obj, seen)
     return obj -- major performance boost ...
-    --[[if type(obj) ~= 'table' then return obj end
-    if seen and seen[obj] then return seen[obj] end
-    local s = seen or {}
-    local res = setmetatable({}, getmetatable(obj))
-    s[obj] = res
-    for k, v in pairs(obj) do res[copy(k, s)] = copy(v, s) end
-    return res]]
 end
 
 --[[
-Return a copy of the complete table with all tracked chars. Structure soon.
+Return a copy of the complete table with all tracked chars.
 ]]
 function LeoAltholic.ExportCharacters(forceUpdate)
     LeoAltholic.GetCharacters(forceUpdate)
@@ -253,6 +254,16 @@ function LeoAltholic.GetCharactersNames()
 end
 
 --[[
+Return all info on 1 char by character ID (id64)
+]]
+function LeoAltholic.GetCharById(charId, forceUpdate)
+    if forceUpdate then
+        LeoAltholic.GetCharacters(true)
+    end
+    return LeoAltholic.globalData.CharList[charId]
+end
+
+--[[
 Return all info on 1 char by name
 ]]
 function LeoAltholic.GetCharByName(name, forceUpdate)
@@ -267,7 +278,7 @@ end
 Return all info on the current char
 ]]
 function LeoAltholic.GetMyself()
-    local myself = copy(LeoAltholic.globalData.CharList[LeoAltholic.CharName])
+    local myself = copy(LeoAltholic.globalData.CharList[LeoAltholic.CharId])
     return myself
 end
 

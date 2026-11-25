@@ -61,6 +61,7 @@ function LeoAltholicChampionList:BuildMasterList()
     local list = LeoAltholic.ExportCharacters(true)
     for k, v in ipairs(list) do
         local data = {
+            id = v.bio.id,
             name = v.bio.name,
             champion = v.champion
         }

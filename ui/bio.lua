@@ -87,7 +87,7 @@ function LeoAltholicBioList:ColorRow(control, data, mouseIsOver)
     for i = 1, control:GetNumChildren() do
         local child = control:GetChild(i)
         if child then
-            if data.name == LeoAltholic.CharName then
+            if data.id == LeoAltholic.CharId then
                 child:SetColor(r, g, b)
             else
                 child:SetColor(color:UnpackRGBA())
@@ -101,6 +101,7 @@ function LeoAltholicBioList:BuildMasterList()
     local list = LeoAltholic.ExportCharacters(true)
     for k, v in ipairs(list) do
         local data = {
+            id = v.bio.id,
             name = v.bio.name,
             level = v.bio.level,
             championPoints = v.bio.championPoints,

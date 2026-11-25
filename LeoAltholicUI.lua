@@ -1,6 +1,5 @@
-
 LeoAltholic.hidden = true
-LeoAltholic.listingInventoryFor = 0
+LeoAltholic.listingInventoryFor = nil
 
 function LeoAltholic:OnWindowMoveStop()
     LeoAltholic.globalData.position = {
@@ -36,15 +35,15 @@ function LeoAltholic.ChangeInventoryUI(bagId)
     LeoAltholic.ShowInventoryUI(LeoAltholic.listingInventoryFor, bagId)
 end
 
-function LeoAltholic.ShowInventoryUI(charName, bagId)
-    LeoAltholic.listingInventoryFor = charName
+function LeoAltholic.ShowInventoryUI(charId, bagId)
+    LeoAltholic.listingInventoryFor = charId
     SCENE_MANAGER:ShowTopLevel(LeoAltholicInventoryWindow)
     LeoAltholicInventoryWindow:SetDrawLayer(DL_OVERLAY)
     LeoAltholicInventoryWindow:SetDrawTier(DT_MEDIUM)
     local header = WINDOW_MANAGER:GetControlByName("LeoAltholicInventoryWindowTitle")
     local char
-    if charName ~= nil then
-        char = LeoAltholic.GetCharByName(charName)
+    if charId ~= nil then
+        char = LeoAltholic.GetCharById(charId) or LeoAltholic.GetCharByName(charId)
         header:SetText(GetString(SI_MAIN_MENU_INVENTORY))
     else
         header:SetText(GetString(SI_CURRENCYLOCATION1))

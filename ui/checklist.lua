@@ -325,38 +325,38 @@ function LeoAltholicChecklistUI.doneRiding()
 end
 
 function LeoAltholicChecklistUI.initializeQuests()
-    for i,trackedQuest in pairs(LeoAltholic.globalData.CharList[LeoAltholic.CharName].quests.writs) do
+    local myChar = LeoAltholic.globalData.CharList[LeoAltholic.CharId]
+    if not myChar then return end
+    for i,trackedQuest in pairs(myChar.quests.writs) do
         for questIndex = 1, MAX_JOURNAL_QUESTS do
             if IsValidQuestIndex(questIndex) and GetJournalQuestName(questIndex) == trackedQuest.name then
-                if LeoAltholic.globalData.CharList[LeoAltholic.CharName].quests.writs[i].lastStarted == nil then
-                    LeoAltholic.globalData.CharList[LeoAltholic.CharName].quests.writs[i].questIndex = questIndex
-                    LeoAltholic.globalData.CharList[LeoAltholic.CharName].quests.writs[i].lastPreDeliver = nil
-                    LeoAltholic.globalData.CharList[LeoAltholic.CharName].quests.writs[i].lastUpdated = nil
-                    LeoAltholic.globalData.CharList[LeoAltholic.CharName].quests.writs[i].lastStarted = GetTimeStamp()    --TevaNOTE: had this commented out earlier, consider again if between becomes broken
---TevaNOTE: nest these above lines in an if or move the line above that is commented out here to where it only happens at the start of the quest, this function is called in initialize() onAddonLoaded
+                if myChar.quests.writs[i].lastStarted == nil then
+                    myChar.quests.writs[i].questIndex = questIndex
+                    myChar.quests.writs[i].lastPreDeliver = nil
+                    myChar.quests.writs[i].lastUpdated = nil
+                    myChar.quests.writs[i].lastStarted = GetTimeStamp()
                 end
                 LeoAltholicChecklistUI.startedWrit(trackedQuest.craft)
 
                 local hasUpdated = false
                 local numConditions = GetJournalQuestNumConditions(questIndex, QUEST_MAIN_STEP_INDEX)
                 for condition = 1, numConditions do
-                    local current, max =  GetJournalQuestConditionValues(questIndex, QUEST_MAIN_STEP_INDEX, condition)
+                    local current, max = GetJournalQuestConditionValues(questIndex, QUEST_MAIN_STEP_INDEX, condition)
                     if hasUpdated == false and current > 0 then hasUpdated = true end
                     local condText = GetJournalQuestConditionInfo(questIndex, QUEST_MAIN_STEP_INDEX, condition)
                     if string.find(condText, GetString(LEOALT_DELIVER)) then
-                        LeoAltholic.globalData.CharList[LeoAltholic.CharName].quests.writs[i].lastPreDeliver = GetTimeStamp()
+                        myChar.quests.writs[i].lastPreDeliver = GetTimeStamp()
                         LeoAltholicChecklistUI.preDeliverWrit(trackedQuest.craft)
                         break
                     end
                 end
                 if hasUpdated then
-                    LeoAltholic.globalData.CharList[LeoAltholic.CharName].quests.writs[i].lastUpdated = GetTimeStamp()
+                    myChar.quests.writs[i].lastUpdated = GetTimeStamp()
                     LeoAltholicChecklistUI.updateWrit(trackedQuest.craft)
                 end
                 break
             end
         end
-        -- if not isDone then LeoAltholicChecklistUI.MaximizeUI() end        --Teva added this function here
     end
 end
 

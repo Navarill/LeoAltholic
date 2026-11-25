@@ -64,7 +64,7 @@ function LeoAltholicInventoryList:SetupEntry(control, data)
     control.writVouchers:SetText(formatNumber(data.inventory.writVoucher))
 
     control.listButton = GetControl(control, "ListButton")
-    control.listButton:SetHandler('OnClicked', function() LeoAltholic.ShowInventoryUI(data.name, BAG_BACKPACK) end)
+    control.listButton:SetHandler('OnClicked', function() LeoAltholic.ShowInventoryUI(data.id, BAG_BACKPACK) end)
 
     ZO_SortFilterList.SetupRow(self, control, data)
 end
@@ -77,7 +77,7 @@ function LeoAltholicInventoryList:ColorRow(control, data, mouseIsOver)
     for i = 1, control:GetNumChildren() do
         local child = control:GetChild(i)
         if child:GetType() == CT_LABEL and string.find(child:GetName(), 'Name$') then
-            if data.name == LeoAltholic.CharName then
+            if data.id == LeoAltholic.CharId then
                 child:SetColor(r, g, b)
             else
                 child:SetColor(color:UnpackRGBA())
@@ -102,6 +102,7 @@ function LeoAltholicInventoryList:BuildMasterList()
     local list = LeoAltholic.ExportCharacters(true)
     for k, v in ipairs(list) do
         local data = {
+            id = v.bio.id,
             name = v.bio.name,
             inventory = v.inventory
         }

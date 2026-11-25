@@ -115,7 +115,7 @@ function LeoAltholicSkills2List:ColorRow(control, data, mouseIsOver)
         local child = control:GetChild(i)
         if child then
             if child:GetType() == CT_LABEL and string.find(child:GetName(), 'Name$') then
-                if data.name == LeoAltholic.CharName then
+                if data.id == LeoAltholic.CharId then
                     child:SetColor(r, g, b)
                 else
                     child:SetColor(color:UnpackRGBA())
@@ -141,6 +141,7 @@ function LeoAltholicSkills2List:BuildMasterList()
     local list = LeoAltholic.ExportCharacters(true)
     for k, v in ipairs(list) do
         local data = {
+            id = v.bio.id,
             name = v.bio.name,
             skills = v.skills
         }
