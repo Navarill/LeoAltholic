@@ -23,9 +23,10 @@ end
 --[[
 Return the timestamp from today's reset (specifically for craft writs)
 ]]
+local RESET_ANCHOR_UTC = (GetWorldName() == "EU Megaserver") and 1538190000 or 1538215200
 function LeoAltholic.TodayReset()
-    local diff = zo_floor(GetDiffBetweenTimeStamps(GetTimeStamp(), 1538190000) / 86400)
-    return 1538190000 + (diff * 86400)
+    local diff = zo_floor(GetDiffBetweenTimeStamps(GetTimeStamp(), RESET_ANCHOR_UTC) / 86400)
+    return RESET_ANCHOR_UTC + (diff * 86400)
 end
 
 --[[
