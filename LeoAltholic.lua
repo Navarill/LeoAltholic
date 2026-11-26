@@ -886,8 +886,6 @@ local function findIteminBank(bagId, slotIndex)
 end
 
 local function onUpdateBank(eventCode, bagId, slotId, isNewItem, itemSoundCategory, inventoryUpdateReason, stackCountChange)
-    if inventoryUpdateReason ~= INVENTORY_UPDATE_REASON_DEFAULT or (bagId ~= BAG_BANK and bagId ~= BAG_SUBSCRIBER_BANK) then return end
-
     local itemLink = GetItemLink(bagId, slotId)
     local removed = false
     local found = findIteminBank(bagId, slotId)
@@ -908,12 +906,21 @@ end
 
 local function onCloseBank(eventCode, bagId)
     EVENT_MANAGER:UnregisterForEvent(LeoAltholic.name, EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
+    EVENT_MANAGER:UnregisterForEvent(LeoAltholic.name .. "_SubBank", EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
 end
 
 local function onOpenBank(eventCode, bagId)
-    if bagId ~= BAG_BANK and bagId ~= BAG_SUBSCRIBER_BANK or not LeoAltholic.globalData.settings.inventory.enabled then return end
-    EVENT_MANAGER:UnregisterForEvent(LeoAltholic.name, EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
+    if (bagId ~= BAG_BANK and bagId ~= BAG_SUBSCRIBER_BANK) or not LeoAltholic.globalData.settings.inventory.enabled then return end
+    onCloseBank()
+
     EVENT_MANAGER:RegisterForEvent(LeoAltholic.name, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, onUpdateBank)
+    EVENT_MANAGER:AddFilterForEvent(LeoAltholic.name, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_BAG_ID, BAG_BANK)
+    EVENT_MANAGER:AddFilterForEvent(LeoAltholic.name, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_INVENTORY_UPDATE_REASON, INVENTORY_UPDATE_REASON_DEFAULT)
+
+    EVENT_MANAGER:RegisterForEvent(LeoAltholic.name .. "_SubBank", EVENT_INVENTORY_SINGLE_SLOT_UPDATE, onUpdateBank)
+    EVENT_MANAGER:AddFilterForEvent(LeoAltholic.name .. "_SubBank", EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_BAG_ID, BAG_SUBSCRIBER_BANK)
+    EVENT_MANAGER:AddFilterForEvent(LeoAltholic.name .. "_SubBank", EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_INVENTORY_UPDATE_REASON, INVENTORY_UPDATE_REASON_DEFAULT)
+
     scanBank()
 end
 

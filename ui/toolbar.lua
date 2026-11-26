@@ -48,6 +48,7 @@ function LeoAltholicToolbarUI.GetBumpCompass()
     if LeoAltholic.globalData.settings.toolbar.bumpCompass == nil then LeoAltholic.globalData.settings.toolbar.bumpCompass = false end
     return LeoAltholic.globalData.settings.toolbar.bumpCompass
 end
+
 function LeoAltholicToolbarUI.BumpCompass(enabled)
     if enabled == nil then enabled = true end
 
@@ -55,18 +56,26 @@ function LeoAltholicToolbarUI.BumpCompass(enabled)
     if WYK_Toolbar and wykkydsToolbar then hasWykkydsToolbar = true end
 
     if not hasWykkydsToolbar and LeoAltholicToolbarUI.IsEnabled() and LeoAltholicToolbarUI.GetBumpCompass() then
+        local compassFrame = WINDOW_MANAGER:GetControlByName("ZO_CompassFrame")
+        local targetUnitFrame = WINDOW_MANAGER:GetControlByName("ZO_TargetUnitFramereticleover")
+        if not compassFrame then return end
+
         if LeoAltholicToolbar:GetTop() <= 60 and enabled then
-            if math.floor(ZO_CompassFrame:GetTop()) ~= math.floor(LeoAltholicToolbar:GetTop()) + 60 then
-                ZO_CompassFrame:ClearAnchors()
-                ZO_CompassFrame:SetAnchor( TOP, GuiRoot, TOP, 0, LeoAltholicToolbar:GetTop() + 60)
-                ZO_TargetUnitFramereticleover:ClearAnchors()
-                ZO_TargetUnitFramereticleover:SetAnchor( TOP, GuiRoot, TOP, 0, LeoAltholicToolbar:GetTop() + 110)
+            if math.floor(compassFrame:GetTop()) ~= math.floor(LeoAltholicToolbar:GetTop()) + 60 then
+                compassFrame:ClearAnchors()
+                compassFrame:SetAnchor(TOP, GuiRoot, TOP, 0, LeoAltholicToolbar:GetTop() + 60)
+                if targetUnitFrame then
+                    targetUnitFrame:ClearAnchors()
+                    targetUnitFrame:SetAnchor(TOP, GuiRoot, TOP, 0, LeoAltholicToolbar:GetTop() + 110)
+                end
             end
-        elseif ZO_CompassFrame:GetTop() ~= 40 or not enabled then
-            ZO_CompassFrame:ClearAnchors()
-            ZO_CompassFrame:SetAnchor( TOP, GuiRoot, TOP, 0, 40 )
-            ZO_TargetUnitFramereticleover:ClearAnchors()
-            ZO_TargetUnitFramereticleover:SetAnchor( TOP, GuiRoot, TOP, 0, 88 )
+        elseif compassFrame:GetTop() ~= 40 or not enabled then
+            compassFrame:ClearAnchors()
+            compassFrame:SetAnchor(TOP, GuiRoot, TOP, 0, 40)
+            if targetUnitFrame then
+                targetUnitFrame:ClearAnchors()
+                targetUnitFrame:SetAnchor(TOP, GuiRoot, TOP, 0, 88)
+            end
         end
     end
 end

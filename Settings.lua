@@ -309,7 +309,7 @@ function LeoAltholic_Settings:CreatePanel()
     LAM:RegisterOptionControls(OptionsName, optionsData)
 end
 
-function LeoAltholic_Settings_OnMouseEnter(control, tooltip)
+function LeoAltholic.Settings_OnMouseEnter(control, tooltip)
     InitializeTooltip(InformationTooltip, control, BOTTOMLEFT, 0, -2, TOPLEFT)
     SetTooltipText(InformationTooltip, tooltip)
 end
