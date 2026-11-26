@@ -1159,6 +1159,28 @@ local function onChampionPointsChanged()
     LeoAltholic.UI.championList:RefreshData()
 end
 
+local function onSkillPointsChanged()
+    local char = LeoAltholic.globalData.CharList[LeoAltholic.CharId]
+    if not char or not char.research or not char.research.done then return end
+
+    local changed = false
+    for _, craft in pairs(LeoAltholic.craftResearch) do
+        if char.research.done[craft] then
+            local maxSlots = GetMaxSimultaneousSmithingResearch(craft)
+            if char.research.done[craft].max ~= maxSlots then
+                char.research.done[craft].max = maxSlots
+                changed = true
+            end
+        end
+    end
+
+    if changed then
+        if LeoAltholic.IsTabVisible(LeoAltholic.TAB_RESEARCH) then
+            LeoAltholic.UI.researchList:RefreshData()
+        end
+        LeoAltholic.ToolbarUI.update()
+    end
+end
 local function onAddOnLoaded(event, addonName)
     if addonName ~= LeoAltholic.name then return end
 
@@ -1186,6 +1208,7 @@ local function onAddOnLoaded(event, addonName)
     EVENT_MANAGER:RegisterForEvent(LeoAltholic.name, EVENT_SMITHING_TRAIT_RESEARCH_COMPLETED, onResearchCompleted)
     EVENT_MANAGER:RegisterForEvent(LeoAltholic.name, EVENT_SMITHING_TRAIT_RESEARCH_STARTED, onResearchStarted)
     EVENT_MANAGER:RegisterForEvent(LeoAltholic.name, EVENT_SMITHING_TRAIT_RESEARCH_CANCELED, onResearchCanceled)
+    EVENT_MANAGER:RegisterForEvent(LeoAltholic.name, EVENT_SKILL_POINTS_CHANGED, onSkillPointsChanged)
 
     initialize()
 
