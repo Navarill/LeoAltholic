@@ -1,6 +1,5 @@
-
-LeoAltholicChampionList = ZO_SortFilterList:Subclass()
-function LeoAltholicChampionList:New(control)
+LeoAltholic.ChampionList = ZO_SortFilterList:Subclass()
+function LeoAltholic.ChampionList:New(control)
 
     ZO_SortFilterList.InitializeSortFilterList(self, control)
 
@@ -21,13 +20,13 @@ function LeoAltholicChampionList:New(control)
     return self
 end
 
-function LeoAltholicChampionList:SetupEntry(control, data)
+function LeoAltholic.ChampionList:SetupEntry(control, data)
     control.data = data
 
     control.name = GetControl(control, "Name")
     control.name:SetText(data.name)
 
-   local icons = {
+    local icons = {
         [CHAMPION_DISCIPLINE_TYPE_COMBAT] = "champion_points_magicka_icon",       -- Blue (Warfare)
         [CHAMPION_DISCIPLINE_TYPE_CONDITIONING] = "champion_points_health_icon",  -- Red (Fitness)
         [CHAMPION_DISCIPLINE_TYPE_WORLD] = "champion_points_stamina_icon",        -- Green (Craft)
@@ -56,7 +55,7 @@ function LeoAltholicChampionList:SetupEntry(control, data)
     ZO_SortFilterList.SetupRow(self, control, data)
 end
 
-function LeoAltholicChampionList:BuildMasterList()
+function LeoAltholic.ChampionList:BuildMasterList()
     self.masterList = {}
     local list = LeoAltholic.ExportCharacters(true)
     for k, v in ipairs(list) do
@@ -70,12 +69,12 @@ function LeoAltholicChampionList:BuildMasterList()
     end
 end
 
-function LeoAltholicChampionList:SortScrollList()
+function LeoAltholic.ChampionList:SortScrollList()
     local scrollData = ZO_ScrollList_GetDataList(self.list)
     table.sort(scrollData, self.sortFunction)
 end
 
-function LeoAltholicChampionList:FilterScrollList()
+function LeoAltholic.ChampionList:FilterScrollList()
     local scrollData = ZO_ScrollList_GetDataList(self.list)
     ZO_ClearNumericallyIndexedTable(scrollData)
     for i = 1, #self.masterList do
@@ -96,7 +95,7 @@ local function addLineTitle(tooltip, text, color)
     tooltip:AddLine(text, "ZoFontHeader3", r, g, b, CENTER, MODIFY_TEXT_TYPE_NONE, TEXT_ALIGN_CENTER, true)
 end
 
-function LeoAltholicUI.TooltipChampionSkill(control, visible)
+function LeoAltholic.UI.TooltipChampionSkill(control, visible)
 
     local disciplineIndex = control.attribute
     local disciplineId = GetChampionDisciplineId(control.attribute)

@@ -1,7 +1,5 @@
-
-
-LeoAltholicWritsList = ZO_SortFilterList:Subclass()
-function LeoAltholicWritsList:New(control)
+LeoAltholic.WritsList = ZO_SortFilterList:Subclass()
+function LeoAltholic.WritsList:New(control)
 
     ZO_SortFilterList.InitializeSortFilterList(self, control)
 
@@ -22,7 +20,7 @@ function LeoAltholicWritsList:New(control)
     return self
 end
 
-function LeoAltholicWritsList:SetupEntry(control, data)
+function LeoAltholic.WritsList:SetupEntry(control, data)
 
     control.data = data
 
@@ -97,7 +95,7 @@ function LeoAltholicWritsList:SetupEntry(control, data)
 end
 
 
-function LeoAltholicWritsList:ColorRow(control, data, mouseIsOver)
+function LeoAltholic.WritsList:ColorRow(control, data, mouseIsOver)
 
     local color = ZO_SECOND_CONTRAST_TEXT
     local r, g, b = GetInterfaceColor(INTERFACE_COLOR_TYPE_ITEM_QUALITY_COLORS, ITEM_QUALITY_MAGIC)
@@ -110,7 +108,7 @@ function LeoAltholicWritsList:ColorRow(control, data, mouseIsOver)
     end
 end
 
-function LeoAltholicWritsList:BuildMasterList()
+function LeoAltholic.WritsList:BuildMasterList()
     self.masterList = {}
     local list = LeoAltholic.ExportCharacters(true)
     for k, v in ipairs(list) do
@@ -124,12 +122,12 @@ function LeoAltholicWritsList:BuildMasterList()
     end
 end
 
-function LeoAltholicWritsList:SortScrollList()
+function LeoAltholic.WritsList:SortScrollList()
     local scrollData = ZO_ScrollList_GetDataList(self.list)
     table.sort(scrollData, self.sortFunction)
 end
 
-function LeoAltholicWritsList:FilterScrollList()
+function LeoAltholic.WritsList:FilterScrollList()
     local scrollData = ZO_ScrollList_GetDataList(self.list)
     ZO_ClearNumericallyIndexedTable(scrollData)
     for i = 1, #self.masterList do

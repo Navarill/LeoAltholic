@@ -1,6 +1,5 @@
-
-LeoAltholicBioList = ZO_SortFilterList:Subclass()
-function LeoAltholicBioList:New(control)
+LeoAltholic.BioList = ZO_SortFilterList:Subclass()
+function LeoAltholic.BioList:New(control)
 
     ZO_SortFilterList.InitializeSortFilterList(self, control)
 
@@ -26,7 +25,7 @@ function LeoAltholicBioList:New(control)
     return self
 end
 
-function LeoAltholicBioList:SetupEntry(control, data)
+function LeoAltholic.BioList:SetupEntry(control, data)
 
     control.data = data
 
@@ -79,7 +78,7 @@ function LeoAltholicBioList:SetupEntry(control, data)
     ZO_SortFilterList.SetupRow(self, control, data)
 end
 
-function LeoAltholicBioList:ColorRow(control, data, mouseIsOver)
+function LeoAltholic.BioList:ColorRow(control, data, mouseIsOver)
 
     local color = ZO_SECOND_CONTRAST_TEXT
     local r, g, b = GetInterfaceColor(INTERFACE_COLOR_TYPE_ITEM_QUALITY_COLORS, ITEM_QUALITY_MAGIC)
@@ -96,7 +95,7 @@ function LeoAltholicBioList:ColorRow(control, data, mouseIsOver)
     end
 end
 
-function LeoAltholicBioList:BuildMasterList()
+function LeoAltholic.BioList:BuildMasterList()
     self.masterList = {}
     local list = LeoAltholic.ExportCharacters(true)
     for k, v in ipairs(list) do
@@ -119,7 +118,7 @@ function LeoAltholicBioList:BuildMasterList()
     end
 end
 
-function LeoAltholicBioList:SortScrollList()
+function LeoAltholic.BioList:SortScrollList()
     local scrollData = ZO_ScrollList_GetDataList(self.list)
     if self.currentSortKey == "alliance" then
         table.sort(scrollData, function(listEntry1, listEntry2)
@@ -144,27 +143,27 @@ function LeoAltholicBioList:SortScrollList()
     end
 end
 
-function LeoAltholicUI:updateBio()
+function LeoAltholic.UI:updateBio()
     local control = LeoAltholicWindowBioPanelListScrollListContents
     for i = 1, control:GetNumChildren() do
         local child = GetControl(control:GetChild(i), "Riding")
-		
-		if child ~= nil and child.riding ~= nil then
-			local riding = '|t20:20:esoui/art/mounts/ridingskill_speed.dds|t' .. string.format("%02d%%", child.riding.speed) ..
-				' |t20:20:esoui/art/mounts/ridingskill_stamina.dds|t' .. string.format("%02d", child.riding.stamina) ..
+
+        if child ~= nil and child.riding ~= nil then
+            local riding = '|t20:20:esoui/art/mounts/ridingskill_speed.dds|t' .. string.format("%02d%%", child.riding.speed) ..
+                ' |t20:20:esoui/art/mounts/ridingskill_stamina.dds|t' .. string.format("%02d", child.riding.stamina) ..
                 ' |t20:20:esoui/art/mounts/ridingskill_capacity.dds|t' .. string.format("%02d", child.riding.capacity)
 
-			if (child.riding.speed < child.riding.speedMax or
-					child.riding.stamina < child.riding.staminaMax or
-					child.riding.capacity < child.riding.capacityMax) then
-				riding = riding .. ' |t22:22:esoui/art/miscellaneous/timer_32.dds|t' .. LeoAltholic.FormatTime(child.riding.time - GetTimeStamp(), true, true)
-			end
-			child:SetText(riding)
-		end
+            if (child.riding.speed < child.riding.speedMax or
+                    child.riding.stamina < child.riding.staminaMax or
+                    child.riding.capacity < child.riding.capacityMax) then
+                riding = riding .. ' |t22:22:esoui/art/miscellaneous/timer_32.dds|t' .. LeoAltholic.FormatTime(child.riding.time - GetTimeStamp(), true, true)
+            end
+            child:SetText(riding)
+        end
     end
 end
 
-function LeoAltholicBioList:FilterScrollList()
+function LeoAltholic.BioList:FilterScrollList()
     local scrollData = ZO_ScrollList_GetDataList(self.list)
     ZO_ClearNumericallyIndexedTable(scrollData)
     for i = 1, #self.masterList do

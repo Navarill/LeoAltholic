@@ -1,5 +1,4 @@
-
-function LeoAltholicUI.InitTrackedPanel()
+function LeoAltholic.UI.InitTrackedPanel()
     local charList = LeoAltholic.ExportCharacters()
     local control
     local anchorY = 112;

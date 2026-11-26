@@ -1,7 +1,5 @@
-
-
-LeoAltholicSkills2List = ZO_SortFilterList:Subclass()
-function LeoAltholicSkills2List:New(control)
+LeoAltholic.Skills2List = ZO_SortFilterList:Subclass()
+function LeoAltholic.Skills2List:New(control)
 
     ZO_SortFilterList.InitializeSortFilterList(self, control)
 
@@ -22,7 +20,7 @@ function LeoAltholicSkills2List:New(control)
     return self
 end
 
-function LeoAltholicSkills2List:SetupEntry(control, data)
+function LeoAltholic.Skills2List:SetupEntry(control, data)
 
     control.data = data
 
@@ -106,7 +104,7 @@ function LeoAltholicSkills2List:SetupEntry(control, data)
     ZO_SortFilterList.SetupRow(self, control, data)
 end
 
-function LeoAltholicSkills2List:ColorRow(control, data, mouseIsOver)
+function LeoAltholic.Skills2List:ColorRow(control, data, mouseIsOver)
 
     local color = ZO_SECOND_CONTRAST_TEXT
     local r, g, b = GetInterfaceColor(INTERFACE_COLOR_TYPE_ITEM_QUALITY_COLORS, ITEM_QUALITY_MAGIC)
@@ -136,7 +134,7 @@ function LeoAltholicSkills2List:ColorRow(control, data, mouseIsOver)
     end
 end
 
-function LeoAltholicSkills2List:BuildMasterList()
+function LeoAltholic.Skills2List:BuildMasterList()
     self.masterList = {}
     local list = LeoAltholic.ExportCharacters(true)
     for k, v in ipairs(list) do
@@ -150,12 +148,12 @@ function LeoAltholicSkills2List:BuildMasterList()
     end
 end
 
-function LeoAltholicSkills2List:SortScrollList()
+function LeoAltholic.Skills2List:SortScrollList()
     local scrollData = ZO_ScrollList_GetDataList(self.list)
     table.sort(scrollData, self.sortFunction)
 end
 
-function LeoAltholicSkills2List:FilterScrollList()
+function LeoAltholic.Skills2List:FilterScrollList()
     local scrollData = ZO_ScrollList_GetDataList(self.list)
     ZO_ClearNumericallyIndexedTable(scrollData)
     for i = 1, #self.masterList do

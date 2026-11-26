@@ -8,11 +8,11 @@ function LeoAltholic:OnWindowMoveStop()
     }
 end
 
-function LeoAltholicUI:OnHide(control, hidden)
+function LeoAltholic.UI:OnHide(control, hidden)
     if hidden then LeoAltholic.HideUI() end
 end
 
-function LeoAltholicUI:OnShow(control, hidden)
+function LeoAltholic.UI:OnShow(control, hidden)
     if not hidden then LeoAltholic.ShowUI() end
 end
 
@@ -127,30 +127,30 @@ function LeoAltholic.ShowTab(tab)
     control:SetHidden(false)
 end
 
-function LeoAltholicUI.InitPanels()
-    LeoAltholicUI.bioList = LeoAltholicBioList:New(LeoAltholicWindowBioPanelListScroll)
-    LeoAltholicUI.bioList:RefreshData()
+function LeoAltholic.UI.InitPanels()
+    LeoAltholic.UI.bioList = LeoAltholic.BioList:New(LeoAltholicWindowBioPanelListScroll)
+    LeoAltholic.UI.bioList:RefreshData()
 
-    LeoAltholicUI.statsList = LeoAltholicStatsList:New(LeoAltholicWindowStatsPanelListScroll)
-    LeoAltholicUI.statsList:RefreshData()
+    LeoAltholic.UI.statsList = LeoAltholic.StatsList:New(LeoAltholicWindowStatsPanelListScroll)
+    LeoAltholic.UI.statsList:RefreshData()
 
-    LeoAltholicUI.championList = LeoAltholicChampionList:New(LeoAltholicWindowChampionPanelListScroll)
-    LeoAltholicUI.championList:RefreshData()
+    LeoAltholic.UI.championList = LeoAltholic.ChampionList:New(LeoAltholicWindowChampionPanelListScroll)
+    LeoAltholic.UI.championList:RefreshData()
 
-    LeoAltholicUI.skillsList = LeoAltholicSkillsList:New(LeoAltholicWindowSkillsPanelListScroll)
-    LeoAltholicUI.skillsList:RefreshData()
+    LeoAltholic.UI.skillsList = LeoAltholic.SkillsList:New(LeoAltholicWindowSkillsPanelListScroll)
+    LeoAltholic.UI.skillsList:RefreshData()
 
-    LeoAltholicUI.skills2List = LeoAltholicSkills2List:New(LeoAltholicWindowSkills2PanelListScroll)
-    LeoAltholicUI.skills2List:RefreshData()
+    LeoAltholic.UI.skills2List = LeoAltholic.Skills2List:New(LeoAltholicWindowSkills2PanelListScroll)
+    LeoAltholic.UI.skills2List:RefreshData()
 
-    LeoAltholicUI.writsList = LeoAltholicWritsList:New(LeoAltholicWindowWritsPanelListScroll)
-    LeoAltholicUI.writsList:RefreshData()
+    LeoAltholic.UI.writsList = LeoAltholic.WritsList:New(LeoAltholicWindowWritsPanelListScroll)
+    LeoAltholic.UI.writsList:RefreshData()
 
-    LeoAltholicUI.invList = LeoAltholicInventoryList:New(LeoAltholicWindowInventoryPanelListScroll)
-    LeoAltholicUI.invList:RefreshData()
+    LeoAltholic.UI.invList = LeoAltholic.InventoryList:New(LeoAltholicWindowInventoryPanelListScroll)
+    LeoAltholic.UI.invList:RefreshData()
 
-    LeoAltholicUI.researchList = LeoAltholicResearchList:New(LeoAltholicWindowResearchPanelListScroll)
-    LeoAltholicUI.researchList:RefreshData()
+    LeoAltholic.UI.researchList = LeoAltholic.ResearchList:New(LeoAltholicWindowResearchPanelListScroll)
+    LeoAltholic.UI.researchList:RefreshData()
 
-    LeoAltholicUI.InitTrackedPanel()
+    LeoAltholic.UI.InitTrackedPanel()
 end

@@ -137,7 +137,7 @@ local function checkQuestForWrits(questName)
             myChar.quests.writs[i].lastStarted = GetTimeStamp()
             myChar.quests.writs[i].lastPreDeliver = nil
             myChar.quests.writs[i].lastUpdated = nil
-            LeoAltholicChecklistUI.startedWrit(trackedQuest.craft)
+            LeoAltholic.ChecklistUI.startedWrit(trackedQuest.craft)
             local numConditions = GetJournalQuestNumConditions(trackedQuest.questIndex, QUEST_MAIN_STEP_INDEX)
             local hasUpdated = false
             for condition = 1, numConditions do
@@ -148,16 +148,16 @@ local function checkQuestForWrits(questName)
                 local condText = GetJournalQuestConditionInfo(trackedQuest.questIndex, QUEST_MAIN_STEP_INDEX, condition)
                 if string.find(condText, GetString(LEOALT_DELIVER)) then
                     myChar.quests.writs[i].lastPreDeliver = GetTimeStamp()
-                    LeoAltholicChecklistUI.preDeliverWrit(trackedQuest.craft)
+                    LeoAltholic.ChecklistUI.preDeliverWrit(trackedQuest.craft)
                     hasUpdated = false
                     break
                 end
             end
             if hasUpdated then
                 myChar.quests.writs[i].lastUpdated = GetTimeStamp()
-                LeoAltholicChecklistUI.updateWrit(trackedQuest.craft)
+                LeoAltholic.ChecklistUI.updateWrit(trackedQuest.craft)
             end
-            LeoAltholicUI.writsList:RefreshData()
+            LeoAltholic.UI.writsList:RefreshData()
             return
         end
     end
@@ -555,7 +555,7 @@ local function onResearchStarted(eventCode, craft, line, trait)
         doneAt = remaining + GetTimeStamp()
     })
     if LeoAltholic.IsTabVisible(LeoAltholic.TAB_RESEARCH) then
-        LeoAltholicUI.researchList:RefreshData()
+        LeoAltholic.UI.researchList:RefreshData()
     end
 end
 
@@ -564,7 +564,7 @@ local function onResearchCanceled(eventCode, craft, line, trait)
         if research.line == line and research.trait == trait then
             table.remove(LeoAltholic.globalData.CharList[LeoAltholic.CharId].research.doing[craft], i)
             if LeoAltholic.IsTabVisible(LeoAltholic.TAB_RESEARCH) then
-                LeoAltholicUI.researchList:RefreshData()
+                LeoAltholic.UI.researchList:RefreshData()
             end
             return
         end
@@ -599,7 +599,7 @@ local function onResearchCompleted(eventCode, craft, line, trait)
         LeoAltholic.log(msg)
     end
     if LeoAltholic.IsTabVisible(LeoAltholic.TAB_RESEARCH) then
-        LeoAltholicUI.researchList:RefreshData()
+        LeoAltholic.UI.researchList:RefreshData()
     end
 end
 
@@ -684,28 +684,28 @@ local function onUpdate()
     processQueue()
 
     updateMyself()
-    LeoAltholicChecklistUI.checkReset()
-    LeoAltholicToolbarUI:update()
+    LeoAltholic.ChecklistUI.checkReset()
+    LeoAltholic.ToolbarUI:update()
 
     LeoAltholic.numUpdates = LeoAltholic.numUpdates + 1
 
     if LeoAltholic.numUpdates >= 1800 then -- 3600 seconds = 1h, forces update every hour
         LeoAltholic.numUpdates = 1
         if LeoAltholic.IsTabVisible(LeoAltholic.TAB_RESEARCH) then
-            LeoAltholicUI.researchList:RefreshData()
+            LeoAltholic.UI.researchList:RefreshData()
         end
     end
 
     if LeoAltholic.isHidden() then return end
 
     if LeoAltholic.IsTabVisible(LeoAltholic.TAB_BIO) then
-        LeoAltholicUI:updateBio()
+        LeoAltholic.UI:updateBio()
     end
     if LeoAltholic.IsTabVisible(LeoAltholic.TAB_RESEARCH) then
-        LeoAltholicUI:updateResearch()
+        LeoAltholic.UI:updateResearch()
     end
     if LeoAltholic.IsTabVisible(LeoAltholic.TAB_INVENTORY) then
-        LeoAltholicUI.UpdateInventory()
+        LeoAltholic.UI.UpdateInventory()
     end
 end
 
@@ -746,7 +746,7 @@ local function trackQuest(questId, automatically)
     end
     LeoAltholic.log(GetString(LEOALT_TRACKING) .. " " .. quest.name .. "...")
     if quest.isCrafting then
-        LeoAltholicUI.writsList:RefreshData()
+        LeoAltholic.UI.writsList:RefreshData()
     end
 end
 
@@ -771,7 +771,7 @@ local function onQuestCounterChanged(eventCode, journalQuestIndex, questName, co
     for i,trackedQuest in pairs(myChar.quests.writs) do
         if (trackedQuest.name == questName) then
             myChar.quests.writs[i].lastUpdated = GetTimeStamp()
-            LeoAltholicChecklistUI.updateWrit(trackedQuest.craft)
+            LeoAltholic.ChecklistUI.updateWrit(trackedQuest.craft)
 
             local numConditions = GetJournalQuestNumConditions(journalQuestIndex, QUEST_MAIN_STEP_INDEX)
             for condition = 1, numConditions do
@@ -779,11 +779,11 @@ local function onQuestCounterChanged(eventCode, journalQuestIndex, questName, co
                 local condText = GetJournalQuestConditionInfo(journalQuestIndex, QUEST_MAIN_STEP_INDEX, condition)
                 if string.find(condText, GetString(LEOALT_DELIVER)) then
                     myChar.quests.writs[i].lastPreDeliver = GetTimeStamp()
-                    LeoAltholicChecklistUI.preDeliverWrit(trackedQuest.craft)
+                    LeoAltholic.ChecklistUI.preDeliverWrit(trackedQuest.craft)
                     break
                 end
             end
-            LeoAltholicUI.writsList:RefreshData()
+            LeoAltholic.UI.writsList:RefreshData()
 
             return
         end
@@ -799,8 +799,8 @@ local function onQuestRemoved(eventCode, isCompleted, journalQuestIndex, questNa
                 myChar.quests.writs[i].lastStarted = nil
                 myChar.quests.writs[i].lastPreDeliver = nil
                 myChar.quests.writs[i].lastUpdated = nil
-                LeoAltholicChecklistUI.stoppedWrit(trackedQuest.craft)
-                LeoAltholicUI.writsList:RefreshData()
+                LeoAltholic.ChecklistUI.stoppedWrit(trackedQuest.craft)
+                LeoAltholic.UI.writsList:RefreshData()
                 return
             end
         end
@@ -814,8 +814,8 @@ local function onQuestComplete(eventCode, questName, level, previousExperience, 
         if (trackedQuest.name == questName) then
             myChar.quests.writs[i].lastDone = GetTimeStamp()
             LeoAltholic.log(ZO_CachedStrFormat(GetString(LEOALT_QUEST_DONE_TODAY), questName))
-            LeoAltholicUI.writsList:RefreshData()
-            LeoAltholicChecklistUI.doneWrit(trackedQuest.craft)
+            LeoAltholic.UI.writsList:RefreshData()
+            LeoAltholic.ChecklistUI.doneWrit(trackedQuest.craft)
             return
         end
     end
@@ -1043,8 +1043,8 @@ local function initializeVars()
         }
     end
 
-    LeoAltholicChecklistUI.normalizeSettings()
-    LeoAltholicToolbarUI.normalizeSettings()
+    LeoAltholic.ChecklistUI.normalizeSettings()
+    LeoAltholic.ToolbarUI.normalizeSettings()
 
     if not LeoAltholic.globalData.dataVersion or LeoAltholic.globalData.dataVersion < 2 then
         migrateDataToV2()
@@ -1073,27 +1073,27 @@ local function onGameMenuEnter()
 end
 
 local function onGameMenuExit()
-    LeoAltholicChecklistUI:CheckHide()
+    LeoAltholic.ChecklistUI:CheckHide()
 end
 
 local function initialize()
     LeoAltholic.RestorePosition()
-    LeoAltholicToolbarUI.RestorePosition()
-    LeoAltholicChecklistUI.RestorePosition()
+    LeoAltholic.ToolbarUI.RestorePosition()
+    LeoAltholic.ChecklistUI.RestorePosition()
 
-    LeoAltholicUI.InitPanels()
+    LeoAltholic.UI.InitPanels()
     createMessageQueue()
 
-    LeoAltholic.settings = LeoAltholic_Settings:New()
+    LeoAltholic.settings = LeoAltholic.Settings:New()
     LeoAltholic.settings:CreatePanel()
 
     LeoAltholic.initialized = true
     CALLBACK_MANAGER:FireCallbacks("LeoAltholicInitialized")
-    LeoAltholicToolbarUI:update()
-    LeoAltholicChecklistUI.initializeQuests()
-    LeoAltholicChecklistUI.update()
-    LeoAltholicUI:updateResearch()
-    LeoAltholicUI.InitInventory()
+    LeoAltholic.ToolbarUI:update()
+    LeoAltholic.ChecklistUI.initializeQuests()
+    LeoAltholic.ChecklistUI.update()
+    LeoAltholic.UI:updateResearch()
+    LeoAltholic.UI.InitInventory()
 end
 
 if QUEST_JOURNAL_KEYBOARD and QUEST_JOURNAL_KEYBOARD.ShowContextMenu then
@@ -1137,8 +1137,8 @@ local function onRidingSkillImprovement(eventCode, ridingSkill, previous, curren
         speedMax = riding[6],
         time = ridetime
     }
-    LeoAltholicChecklistUI.doneRiding()
-    LeoAltholicUI.bioList:RefreshData()
+    LeoAltholic.ChecklistUI.doneRiding()
+    LeoAltholic.UI.bioList:RefreshData()
 end
 
 local function onChampionPointsChanged()
@@ -1156,7 +1156,7 @@ local function onChampionPointsChanged()
             myChar.champion[disciplineIndex].skills[skill] = GetNumPointsSpentOnChampionSkill(id)
         end
     end
-    LeoAltholicUI.championList:RefreshData()
+    LeoAltholic.UI.championList:RefreshData()
 end
 
 local function onAddOnLoaded(event, addonName)
@@ -1176,7 +1176,7 @@ local function onAddOnLoaded(event, addonName)
         end
 
         if cmd == "checklist" then
-            LeoAltholicChecklistUI.ToggleUI()
+            LeoAltholic.ChecklistUI.ToggleUI()
             return
         end
     end

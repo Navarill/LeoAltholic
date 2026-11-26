@@ -1,6 +1,5 @@
-
-LeoAltholicInventoryList = ZO_SortFilterList:Subclass()
-function LeoAltholicInventoryList:New(control)
+LeoAltholic.InventoryList = ZO_SortFilterList:Subclass()
+function LeoAltholic.InventoryList:New(control)
 
     ZO_SortFilterList.InitializeSortFilterList(self, control)
 
@@ -35,7 +34,7 @@ local function formatNumber(amount)
     return FormatIntegerWithDigitGrouping( amount, GetString( SI_DIGIT_GROUP_SEPARATOR ), 3 )
 end
 
-function LeoAltholicInventoryList:SetupEntry(control, data)
+function LeoAltholic.InventoryList:SetupEntry(control, data)
 
     control.data = data
 
@@ -69,7 +68,7 @@ function LeoAltholicInventoryList:SetupEntry(control, data)
     ZO_SortFilterList.SetupRow(self, control, data)
 end
 
-function LeoAltholicInventoryList:ColorRow(control, data, mouseIsOver)
+function LeoAltholic.InventoryList:ColorRow(control, data, mouseIsOver)
 
     local color = ZO_SECOND_CONTRAST_TEXT
     local r, g, b = GetInterfaceColor(INTERFACE_COLOR_TYPE_ITEM_QUALITY_COLORS, ITEM_QUALITY_MAGIC)
@@ -97,7 +96,7 @@ function LeoAltholicInventoryList:ColorRow(control, data, mouseIsOver)
     end
 end
 
-function LeoAltholicInventoryList:BuildMasterList()
+function LeoAltholic.InventoryList:BuildMasterList()
     self.masterList = {}
     local list = LeoAltholic.ExportCharacters(true)
     for k, v in ipairs(list) do
@@ -111,12 +110,12 @@ function LeoAltholicInventoryList:BuildMasterList()
     end
 end
 
-function LeoAltholicInventoryList:SortScrollList()
+function LeoAltholic.InventoryList:SortScrollList()
     local scrollData = ZO_ScrollList_GetDataList(self.list)
     table.sort(scrollData, self.sortFunction)
 end
 
-function LeoAltholicInventoryList:FilterScrollList()
+function LeoAltholic.InventoryList:FilterScrollList()
     local scrollData = ZO_ScrollList_GetDataList(self.list)
     ZO_ClearNumericallyIndexedTable(scrollData)
     for i = 1, #self.masterList do
@@ -125,7 +124,7 @@ function LeoAltholicInventoryList:FilterScrollList()
     end
 end
 
-function LeoAltholicUI.InitInventory()
+function LeoAltholic.UI.InitInventory()
     local panel = WINDOW_MANAGER:GetControlByName("LeoAltholicWindowInventoryPanel")
     local list = GetControl(panel, "ListScroll")
 
@@ -176,10 +175,10 @@ function LeoAltholicUI.InitInventory()
     control:SetText("|c" ..LeoAltholic.color.hex.green.. (soulGemFilled+LeoAltholic.globalData.AccountData.inventory.soulGemFilled)
             .. '|r / ' .. (soulGemEmpty+LeoAltholic.globalData.AccountData.inventory.soulGemEmpty))
 
-    LeoAltholicUI.UpdateInventory()
+    LeoAltholic.UI.UpdateInventory()
 end
 
-function LeoAltholicUI.UpdateInventory()
+function LeoAltholic.UI.UpdateInventory()
 
     local data = LeoAltholic.globalData.AccountData
     local bankRow = WINDOW_MANAGER:GetControlByName("LeoAltholicWindowInventoryPanelBankRow")

@@ -1,8 +1,7 @@
-
 LeoAltholic = LeoAltholic or {}
-LeoAltholicUI = LeoAltholicUI or {}
-LeoAltholicChecklistUI = LeoAltholicChecklistUI or {}
-LeoAltholicToolbarUI = LeoAltholicToolbarUI or {}
+LeoAltholic.UI = LeoAltholic.UI or {}
+LeoAltholic.ChecklistUI = LeoAltholic.ChecklistUI or {}
+LeoAltholic.ToolbarUI = LeoAltholic.ToolbarUI or {}
 
 LeoAltholic.name = "LeoAltholic"
 LeoAltholic.displayName = "Leo's Altholic"
