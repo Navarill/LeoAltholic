@@ -41,7 +41,7 @@ function LeoAltholic.ResearchList:SetupEntry(control, data)
 
         local first
         local list = {}
-        for _, research in pairs(data.research.doing[craft]) do
+        for _, research in pairs(data.research.doing[craft] or {}) do
             if isCurrentPlayer then
                 local _, remaining = GetSmithingResearchLineTraitTimes(craft, research.line, research.trait)
                 if remaining ~= nil then

@@ -227,7 +227,6 @@ end
 function LeoAltholic.UI.TooltipSkill(control, visible)
 
     if visible and control.tooltip and control.tooltip.name then
-        if not parent then parent = control end
 
         InitializeTooltip(InformationTooltip, control, LEFT, 5, 0)
 
